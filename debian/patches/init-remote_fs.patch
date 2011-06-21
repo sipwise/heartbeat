@@ -1,0 +1,108 @@
+From horms  Mon Jan  7 01:27:37 2008
+Return-Path: <debbugs@rietz.debian.org>
+X-Spam-Checker-Version: SpamAssassin 3.2.1-kirsty.vergenet.net_2007012401
+	(2007-05-02) on kirsty.vergenet.net
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.6 required=5.0 tests=AWL,BAYES_00 autolearn=ham
+	version=3.2.1-kirsty.vergenet.net_2007012401
+X-Original-To: horms@verge.net.au
+Delivered-To: horms@vergenet.net
+Received: from mail.au.vergenet.net [202.4.237.240]
+	by tabatha.lab.ultramonkey.org with POP3 (fetchmail-6.3.8)
+	for <horms@localhost> (single-drop); Mon, 07 Jan 2008 10:27:37 +0900 (JST)
+Received: from rietz.debian.org (rietz.debian.org [140.211.166.43])
+	by kirsty.vergenet.net (Postfix) with ESMTP id 5E7CA24060
+	for <horms@verge.net.au>; Mon,  7 Jan 2008 09:39:43 +1100 (EST)
+Received: from debbugs by rietz.debian.org with local (Exim 4.63)
+	(envelope-from <debbugs@rietz.debian.org>)
+	id 1JBe94-0008Vf-KQ; Sun, 06 Jan 2008 22:39:06 +0000
+X-Loop: owner@bugs.debian.org
+Subject: init: add should-start/stop $remote_fs to init script
+Reply-To: Petter Reinholdtsen <pere@hungry.com>, 459497@bugs.debian.org
+Resent-From: Petter Reinholdtsen <pere@hungry.com>
+Original-Sender: Petter Reinholdtsen <petter.reinholdtsen@usit.uio.no>
+Resent-To: debian-bugs-dist@lists.debian.org
+Resent-CC: Simon Horman <horms@debian.org>
+Resent-Date: Sun, 06 Jan 2008 22:39:04 +0000
+Resent-Message-ID: <handler.459497.B.11996581495099@bugs.debian.org>
+X-Debian-PR-Message: report 459497
+X-Debian-PR-Package: heartbeat
+X-Debian-PR-Keywords: patch
+X-Debian-PR-Source: heartbeat
+Received: via spool by submit@bugs.debian.org id=B.11996581495099
+          (code B ref -1); Sun, 06 Jan 2008 22:39:04 +0000
+Received: (at submit) by bugs.debian.org; 6 Jan 2008 22:22:29 +0000
+Received: from pat.uio.no ([129.240.10.15])
+	by rietz.debian.org with esmtp (Exim 4.63)
+	(envelope-from <pre@saruman.uio.no>)
+	id 1JBdsz-0001J6-9B
+	for submit@bugs.debian.org; Sun, 06 Jan 2008 22:22:29 +0000
+Received: from mail-mx4.uio.no ([129.240.10.45])
+	by pat.uio.no with esmtp (Exim 4.67)
+	(envelope-from <pre@saruman.uio.no>)
+	id 1JBdst-0001Uz-E5
+	for submit@bugs.debian.org; Sun, 06 Jan 2008 23:22:23 +0100
+Received: from saruman.uio.no ([129.240.5.17])
+	by mail-mx4.uio.no with esmtp (Exim 4.67)
+	(envelope-from <pre@saruman.uio.no>)
+	id 1JBdss-0006Xm-Pu; Sun, 06 Jan 2008 23:22:23 +0100
+Received: from pre by saruman.uio.no with local (Exim 4.44)
+	id 1JBdss-0005XY-AZ; Sun, 06 Jan 2008 23:22:22 +0100
+To: submit@bugs.debian.org
+From: Petter Reinholdtsen <pere@hungry.com>
+Date: Sun, 06 Jan 2008 23:22:22 +0100
+Message-ID: <2fly7b261cx.fsf@saruman.uio.no>
+User-Agent: Gnus/5.1008 (Gnus v5.10.8) Emacs/21.4 (usg-unix-v)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Sender: Petter Reinholdtsen <petter.reinholdtsen@usit.uio.no>
+X-UiO-ClamAV-Virus: No
+X-UiO-Spam-info: not spam, SpamAssassin (score=-4.0, required=5.0, autolearn=disabled, AWL=0.978,UIO_MAIL_IS_INTERNAL=-5)
+X-UiO-Scanned: 970378EB478AA26CD34F4A6F0CC56B6A453886AE
+X-UiO-SPAM-Test: remote_host: 129.240.5.17 spam_score: -39 maxlevel 99990 minaction 0 bait 0 mail/h: 1 total 38077 max/h 47 blacklist 0 greylist 0 ratelimit 0
+Delivered-To: submit@bugs.debian.org
+Resent-Sender: Debian BTS <debbugs@rietz.debian.org>
+Resent-Date: Sun, 06 Jan 2008 22:39:06 +0000
+X-Loop: oathstix_finish by kirsty.vergenet.net
+X-Loop: oathstix_finish by tabatha.lab.ultramonkey.org
+Status: RO
+X-Status: A
+Content-Length: 1632
+Lines: 46
+
+When testing dependency based boot sequencing, I discovered what I
+believe is a bug in the init.d/heartbeat script.  It need a mounted
+/usr/, but do not depend on $remote_fs which is the dependency
+required for scripts needing /usr/.  It uses the default params when
+calling update-rc.d, but do not list the equivalent runlevels in the
+LSB header.
+
+Debian Bug #459497. See: http://bugs.debian.org/459497
+
+Cc: Petter Reinholdtsen <pere@hungry.com>
+Signed-off-by: Simon Horman <horms@verge.net.au>
+
+diff -ur heartbeat-2.1.3.orig/heartbeat/init.d/heartbeat.in heartbeat-2.1.3/heartbeat/init.d/heartbeat.in
+--- heartbeat-2.1.3.orig/heartbeat/init.d/heartbeat.in  2008-01-06 23:07:28.000000000 +0100
++++ heartbeat-2.1.3/heartbeat/init.d/heartbeat.in       2008-01-06 23:12:48.000000000 +0100
+@@ -36,11 +36,11 @@
+ #
+ # Short-Description: High-availability services.
+ # Provides: heartbeat HA
+-# Required-Start: $network $time $syslog
++# Required-Start: $remote_fs $network $time $syslog
+ # Should-Start: ntp
+-# Required-Stop: $network $time $syslog
+-# Default-Start: 3 5
+-# Default-Stop: 0 6
++# Required-Stop: $remote_fs $network $time $syslog
++# Default-Start: 2 3 4 5
++# Default-Stop: 0 1 6
+ ### END INIT INFO
+
+
+Happy hacking,
+--
+Petter Reinholdtsen
+
+

@@ -1,0 +1,69 @@
+Remove bashisms in ocf-tester, hb_report and heartbeat's init script
+
+Debian bug #464985
+See: http://bugs.debian.org/464985
+
+In the case of the use of "echo -e" in ocf-tester, the -e flag doesn't
+exist in dash and it interpates escaape sequences by default.  Bash on the
+other hand has the -e flag and may or may not interprate escape sequences
+by default. In any case, it seems that it is never called with a string
+that includes escape sequences, so it is safe just to remove -e.
+
+In the case of the use of cnt=$((cnt + 1) in hb_report,
+it seems that cnt=$(($cnt + 1) is the non-bashish way to do this.
+
+And in the case of the use of cmd &> /dev/null in heartbeat's init
+script, it seems that cmd >/dev/null 2>&1 is the non-bashish way
+to do this.
+
+Signed-off-by: Simon Horman <horms@verge.net.au>
+
+
+Index: heartbeat/heartbeat/init.d/heartbeat.in
+===================================================================
+--- heartbeat.orig/heartbeat/init.d/heartbeat.in	2008-02-15 18:24:28.000000000 +0900
++++ heartbeat/heartbeat/init.d/heartbeat.in	2008-02-15 18:26:13.000000000 +0900
+@@ -346,7 +346,7 @@ StopHA() {
+   EchoNoNl "Stopping High-Availability services: "
+ 
+   if
+-    $HA_BIN/heartbeat -k &> /dev/null	# Kill it
++    $HA_BIN/heartbeat -k >/dev/null 2>&1	# Kill it
+   then
+     echo_success
+     return 0
+Index: heartbeat/tools/hb_report.in
+===================================================================
+--- heartbeat.orig/tools/hb_report.in	2008-02-15 18:22:19.000000000 +0900
++++ heartbeat/tools/hb_report.in	2008-02-15 18:24:11.000000000 +0900
+@@ -416,7 +416,7 @@ analyze_one() {
+ 	for n in `getnodes`; do
+ 		if [ "$node0" ]; then
+ 			diffcheck $1/$node0/$2 $1/$n/$2
+-			rc=$((rc+$?))
++			rc=$(($rc+$?))
+ 		else
+ 			node0=$n
+ 		fi
+@@ -557,7 +557,7 @@ if [ "$SLAVE" = "" ]; then
+ 			[?]) usage short;;
+ 		esac
+ 	done
+-	shift $((OPTIND-1))
++	shift $(($OPTIND-1))
+ 	[ $# -ne 1 ] && usage short
+ 	DESTDIR=`echo $1 | sed 's,/*$,,'`
+ 	chkdirname $DESTDIR
+Index: heartbeat/tools/ocf-tester.in
+===================================================================
+--- heartbeat.orig/tools/ocf-tester.in	2008-02-15 17:48:54.000000000 +0900
++++ heartbeat/tools/ocf-tester.in	2008-02-15 18:22:01.000000000 +0900
+@@ -44,7 +44,7 @@ assert() {
+     exit_code=$1; shift
+     if [ $rc -ne $target ]; then
+ 	num_errors=`expr $num_errors + 1`
+-	echo -e "* rc=$rc: $msg"
++	echo "* rc=$rc: $msg"
+ 	if [ ! -z $exit_code ]; then
+ 	    echo "Aborting tests"
+ 	    exit $exit_code

@@ -1,0 +1,144 @@
+From horms  Sun Mar 29 21:28:35 2009
+Return-Path: <bounces+20090327-horms=debian.org@packages.qa.debian.org>
+X-Spam-Checker-Version: SpamAssassin 3.2.5-kirsty.vergenet.net_2007012401
+	(2008-06-10) on kirsty.vergenet.net
+X-Spam-Level: 
+X-Spam-Status: No, score=-3.6 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_LOW
+	autolearn=ham version=3.2.5-kirsty.vergenet.net_2007012401
+X-Original-To: horms@verge.net.au
+Delivered-To: horms@vergenet.net
+Received: from mail.au.vergenet.net [202.4.237.240]
+	by yukiko.kent.sydney.vergenet.net with POP3 (fetchmail-6.3.9-rc2)
+	for <horms@localhost> (single-drop); Mon, 30 Mar 2009 08:28:35 +1100 (EST)
+Received: from master.debian.org (master.debian.org [70.103.162.29])
+	by kirsty.vergenet.net (Postfix) with ESMTP id A38DD24060
+	for <horms@verge.net.au>; Fri, 27 Mar 2009 21:06:11 +1100 (EST)
+Received: from qa by master.debian.org with local (Exim 4.69)
+	(envelope-from <bounces+20090327-horms=debian.org@packages.qa.debian.org>)
+	id 1Ln8x0-0000TZ-48; Fri, 27 Mar 2009 10:06:10 +0000
+Received: from rietz.debian.org ([140.211.166.43])	by master.debian.org
+ with esmtp (Exim 4.69)	(envelope-from <debbugs@rietz.debian.org>)	id
+ 1Ln8wz-0000TK-N2	for heartbeat@packages.qa.debian.org; Fri, 27 Mar 2009
+ 10:06:09 +0000
+Received: from debbugs by rietz.debian.org with local (Exim 4.63)
+ (envelope-from <debbugs@rietz.debian.org>)	id 1Ln8r6-0004Ok-JC; Fri,
+ 27 Mar 2009 10:00:04 +0000
+X-Loop: owner@bugs.debian.org
+Subject: Bug#521394: heartbeat: ocf resources script o2cb doesn't work
+Reply-To: Michel Rode <rmichel@devnu11.net>, 521394@bugs.debian.org
+Resent-From: Michel Rode <rmichel@devnu11.net>
+Resent-To: debian-bugs-dist@lists.debian.org
+Resent-CC: Simon Horman <horms@debian.org>
+Resent-Date: Fri, 27 Mar 2009 10:00:02 +0000
+Resent-Message-ID: <handler.521394.B.123814779814011@bugs.debian.org>
+X-Debian-PR-Message: report 521394
+X-Debian-PR-Package: heartbeat
+X-Debian-PR-Keywords: patch
+X-Debian-PR-Source: heartbeat
+Received: via spool by submit@bugs.debian.org id=B.123814779814011 (code B
+ ref -1); Fri, 27 Mar 2009 10:00:02 +0000
+Received: (at submit) by bugs.debian.org; 27 Mar 2009 09:56:38 +0000
+Received: from gryps51.uni-greifswald.de ([141.53.8.24])	by
+ rietz.debian.org with esmtp (Exim 4.63)	(envelope-from
+ <rmichel@devnu11.net>)	id 1Ln8nl-0003d5-OV	for submit@bugs.debian.org; Fri,
+ 27 Mar 2009 09:56:37 +0000
+Received: from xen1.azubi.uni-greifswald.de (unverified) by
+ gryps51.uni-greifswald.de (Clearswift SMTPRS 5.2.9) with ESMTP id
+ <T8d53fb523f8d3508181580@gryps51.uni-greifswald.de>; Fri, 27 Mar 2009
+ 10:56:08 +0100
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+From: Michel Rode <rmichel@devnu11.net>
+To: Debian Bug Tracking System <submit@bugs.debian.org>
+Message-ID: <20090327095630.3482.63165.reportbug@xen1.azubi.uni-greifswald.de>
+X-Mailer: reportbug 3.48
+Date: Fri, 27 Mar 2009 10:56:30 +0100
+Delivered-To: submit@bugs.debian.org
+Resent-Date: Fri, 27 Mar 2009 10:00:04 +0000
+Delivered-To: heartbeat@packages.qa.debian.org
+Precedence: list
+X-Loop: heartbeat@packages.qa.debian.org
+X-Debian: PTS
+X-Debian-Package: heartbeat
+X-PTS-Package: heartbeat
+X-PTS-Keyword: bts
+List-Unsubscribe: <mailto:pts@qa.debian.org?body=unsubscribe+heartbeat>
+Resent-Sender: Debian QA <qa@master.debian.org>
+X-Loop: oathstix_finish by kirsty.vergenet.net
+X-Loop: oathstix_finish by yukiko.kent.sydney.vergenet.net
+Status: RO
+X-Status: A
+Content-Length: 3160
+Lines: 70
+
+Package: heartbeat
+Version: 2.1.3-6lenny0
+Severity: critical
+Tags: patch
+Justification: breaks the whole system
+
+
+ocf resources script doe't start because there is a missing $ in line 314.
+
+-- System Information:
+Debian Release: 5.0
+  APT prefers stable
+  APT policy: (500, 'stable')
+Architecture: i386 (i686)
+
+Kernel: Linux 2.6.26-1-xen-686 (SMP w/1 CPU core)
+Locale: LANG=en_US.UTF-8, LC_CTYPE=en_US.UTF-8 (charmap=UTF-8)
+Shell: /bin/sh linked to /bin/bash
+
+Versions of packages heartbeat depends on:
+ii  adduser                3.110             add and remove users and groups
+ii  gawk                   1:3.1.5.dfsg-4.1  GNU awk, a pattern scanning and pr
+ii  iproute                20080725-2        networking and traffic control too
+ii  iputils-ping           3:20071127-1      Tools to test the reachability of 
+ii  libbz2-1.0             1.0.5-1           high-quality block-sorting file co
+ii  libc6                  2.7-18            GNU C Library: Shared libraries
+ii  libcurl3               7.18.2-8lenny2    Multi-protocol file transfer libra
+ii  libglib2.0-0           2.16.6-1+lenny1   The GLib library of C routines
+ii  libgnutls26            2.4.2-6           the GNU TLS library - runtime libr
+ii  libltdl3               1.5.26-4          A system independent dlopen wrappe
+ii  libncurses5            5.7+20081213-1    shared libraries for terminal hand
+ii  libnet1                1.1.2.1-2         library for the construction and h
+ii  libopenhpi2            2.12.0-1          OpenHPI libraries (runtime and sup
+ii  libpam-runtime         1.0.1-5           Runtime support for the PAM librar
+ii  libpam0g               1.0.1-5           Pluggable Authentication Modules l
+ii  libsnmp15              5.4.1~dfsg-12     SNMP (Simple Network Management Pr
+ii  libssl0.9.8            0.9.8g-15         SSL shared libraries
+ii  libuuid1               1.41.3-1          universally unique id library
+ii  libwrap0               7.6.q-16          Wietse Venema's TCP wrappers libra
+ii  libxml2                2.6.32.dfsg-5     GNOME XML library
+ii  libxml2-utils          2.6.32.dfsg-5     XML utilities
+ii  mawk                   1.3.3-11.1        a pattern scanning and text proces
+ii  psmisc                 22.6-1            Utilities that use the proc filesy
+ii  python                 2.5.2-3           An interactive high-level object-o
+ii  python-central         0.6.8             register and build utility for Pyt
+ii  zlib1g                 1:1.2.3.3.dfsg-12 compression library - runtime
+
+Versions of packages heartbeat recommends:
+ii  iptables                      1.4.2-6    administration tools for packet fi
+ii  logrotate                     3.7.1-5    Log rotation utility
+ii  rsyslog [system-log-daemon]   3.18.6-4   enhanced multi-threaded syslogd
+
+heartbeat suggests no packages.
+
+-- no debconf information
+
+*** /tmp/test/ocf_o2cd.patch
+--- a/resources/OCF/o2cb	2009-01-22 06:58:49.000000000 +0100
++++ a/resources/OCF/o2cb	2009-03-24 15:56:28.000000000 +0100
+@@ -311,7 +311,7 @@
+ 		;;
+ esac
+ 
+-RCO2CB=INITDIR/o2cb
++RCO2CB=$INITDIR/o2cb
+ # RCO2CB=/etc/init.d/o2cb
+ 
+ if [ ! -x $RCO2CB ]; then
+
+
