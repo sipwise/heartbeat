@@ -1,13 +1,16 @@
 heartbeat-2 (2.1.3-6lenny4~bpo60+1) squeeze-backports; urgency=low
 
   * Rebuild for squeeze-backports.
+  * Adjust file path (/usr/lib<->/usr/lib64) for building the Debian
+    package properly on 64bit systems.
+  * Rename package to heartbeat-2 (and other binary packages
+    accordingly as well) to avoid conflicts with versions in squeeze.
   * Replace build-depends on libsensors-dev with libsensors4-dev.
-  * Adjust file path (/usr/lib) in Debian package for 64bit
-    version (/usr/lib64).
-  * Rename package to heartbeat-2 to avoid conflicts with version
-    in squeeze.
+  * Drop python-xml from depends of hearbeat-2-gui (see #540475).
+  * Drop all virtual packages since we don't support anything
+    older than squeeze.
 
- -- Michael Prokop <mprokop@sipwise.com>  Tue, 21 Jun 2011 23:21:44 +0200
+ -- Michael Prokop <mprokop@sipwise.com>  Wed, 22 Jun 2011 14:06:06 +0200
 
 heartbeat (2.1.3-6lenny4) stable-proposed-updates; urgency=low
 

@@ -2,11 +2,12 @@ Source: heartbeat-2
 Section: admin
 Priority: optional
 Maintainer: Simon Horman <horms@debian.org>
+Uploaders: Michael Prokop <mprokop@sipwise.com>
 Build-Depends: debhelper (>= 5.0.37.2), libsnmp-dev, libglib2.0-dev, perl, net-tools, iputils-ping, python, psmisc, libnet1-dev, iproute, libtool, libcurl4-openssl-dev | libcurl3-openssl-dev, libxml2-dev, bison, flex, uuid-dev, lynx, libbz2-dev, zlib1g-dev, uuid-dev, libsensors4-dev, libltdl3-dev, swig, openssh-client, libgnutls-dev, python-central (>= 0.5), python-dev, libpam0g-dev, libncurses5-dev, psmisc, libopenhpi-dev
 Standards-Version: 3.7.3
 XS-Python-Version: current
 
-Package: ldirectord
+Package: ldirectord-2
 Section: admin
 Priority: extra
 Architecture: all
@@ -62,63 +63,8 @@ Package: heartbeat-2-gui
 Section: admin
 Priority: optional
 Architecture: any
-Depends: ${python:Depends},  python-gtk2, python-glade2, uuid-runtime, python-xml
+Depends: ${python:Depends}, python-gtk2, python-glade2, uuid-runtime
 Suggests: heartbeat-2 (= ${binary:Version})
 XB-Python-Version: ${python:Versions}
 Description: Provides a gui interface to manage heartbeat clusters
  GUI client for heartbeat clusters
-
-Package: ldirectord-2
-Section: admin
-Priority: optional
-Architecture: all
-Depends: ldirectord (= ${source:Version})
-Description: Monitors virtual services provided by LVS
- This is a transitional dummy package.  If nothing depends on it, this
- package can be safely removed.
-
-Package: stonith
-Section: libs
-Priority: optional
-Architecture: any
-Depends: heartbeat-2 (= ${binary:Version})
-Description: Interface for remotely powering down a node in the cluster
- This is a transitional dummy package.  If nothing depends on it, this
- package can be safely removed.
-
-Package: libstonith0
-Section: libs
-Priority: optional
-Architecture: any
-Depends: heartbeat-2 (= ${binary:Version})
-Description: Interface for remotely powering down a node in the cluster
- This is a transitional dummy package.  If nothing depends on it, this
- package can be safely removed.
-
-Package: libstonith-dev
-Section: admin
-Priority: optional
-Architecture: all
-Depends: heartbeat-2-dev (>= ${source:Version})
-Description: Interface for remotely powering down a node in the cluster
- This is a transitional dummy package.  If nothing depends on it, this
- package can be safely removed.
-
-Package: libpils0
-Section: libs
-Priority: optional
-Architecture: any
-Depends: heartbeat-2 (= ${binary:Version})
-Description: Plugin and Interface Loading System
- This is a transitional dummy package.  If nothing depends on it, this
- package can be safely removed.
-
-Package: libpils-dev
-Section: admin
-Priority: optional
-Architecture: all
-Depends: heartbeat-2-dev (>= ${source:Version})
-Description: Plugin and Interface Loading System - development files
- This is a transitional dummy package.  If nothing depends on it, this
- package can be safely removed.
-

@@ -109,7 +109,7 @@ install-stamp:
 		$(DTMP)/etc/default/ldirectord
 	cd $(DTMP)/etc/ && ln -s ha.d heartbeat
 	# debug:
-	find $(DTMP)
+	#find $(DTMP)
 	dh_movefiles --source=debian/tmp
 
 binary-indep: build install
