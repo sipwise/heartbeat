@@ -27,7 +27,7 @@ Architecture: any
 Depends: ${shlibs:Depends}, ${python:Depends}, iproute, adduser, iputils-ping, psmisc, gawk, mawk, libxml2-utils, libpam-runtime (>= 0.76-14)
 Recommends: rsyslog | system-log-daemon, logrotate, iptables
 Provides: libstonith0, libpils0
-Conflicts: libstonith0, libpils0, heartbeat
+Conflicts: libstonith0, libpils0, heartbeat, cluster-agents
 Replaces: libstonith0, libpils0
 XB-Python-Version: ${python:Versions}
 Description: Subsystem for High-Availability Linux
