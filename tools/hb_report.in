@@ -416,7 +416,7 @@ analyze_one() {
 	for n in `getnodes`; do
 		if [ "$node0" ]; then
 			diffcheck $1/$node0/$2 $1/$n/$2
-			rc=$(($rc+$?))
+			rc=$((rc+$?))
 		else
 			node0=$n
 		fi
@@ -557,7 +557,7 @@ if [ "$SLAVE" = "" ]; then
 			[?]) usage short;;
 		esac
 	done
-	shift $(($OPTIND-1))
+	shift $((OPTIND-1))
 	[ $# -ne 1 ] && usage short
 	DESTDIR=`echo $1 | sed 's,/*$,,'`
 	chkdirname $DESTDIR

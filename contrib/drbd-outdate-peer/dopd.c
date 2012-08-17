@@ -202,17 +202,14 @@ msg_outdate_rc(struct ha_msg *msg_in, void *private)
 }
 
 /* check_drbd_peer()
- * walk the nodes and return
- *  FALSE if peer is not found, not a "normal" node, or "dead"
- *    (no point in trying to reach those nodes).
- *  TRUE if peer is found to be alive and "normal".
+ * walk the nodes and return TRUE if peer is not this node and it exists.
  */
 gboolean
 check_drbd_peer(const char *drbd_peer)
 {
 	const char *node;
 	gboolean found = FALSE;
-	if (!strcasecmp(drbd_peer, node_name)) {
+	if (!strcmp(drbd_peer, node_name)) {
 		cl_log(LOG_WARNING, "drbd peer node %s is me!\n", drbd_peer);
 		return FALSE;
 	}
@@ -309,9 +306,9 @@ outdater_callback(IPC_Channel *client, gpointer user_data)
 			} else
 				pthread_mutex_unlock(&conn_mutex);
 		} else {
-			/* peer "dead" or not in node list.
-			 * return "peer could not be reached" */
-			send_to_client(curr_client, "5");
+			/* wrong peer was specified,
+			   send return code 20 to the client */
+			send_to_client(curr_client, "20");
 		}
 
 		ha_msg_del(msg);

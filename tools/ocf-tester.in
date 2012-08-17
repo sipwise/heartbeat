@@ -44,7 +44,7 @@ assert() {
     exit_code=$1; shift
     if [ $rc -ne $target ]; then
 	num_errors=`expr $num_errors + 1`
-	echo "* rc=$rc: $msg"
+	echo -e "* rc=$rc: $msg"
 	if [ ! -z $exit_code ]; then
 	    echo "Aborting tests"
 	    exit $exit_code

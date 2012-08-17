@@ -426,7 +426,7 @@ overridden by an optional per real-server based request-string.
 For a DNS check this should the name of an A record, or the address
 of a PTR record to look up.
 
-For a MySQL, Oracle or PostgeSQL check, this should be an SQL SELECT query.
+For a MySQL, Oracle or PostgeSQL check, this should be an SQL query.
 The data returned is not checked, only that the
 answer is one or more rows.  This is a required setting.
 
@@ -965,7 +965,6 @@ sub check_signal
 sub reread_config
 {
 	@OLDVIRTUAL = @VIRTUAL;
-	@VIRTUAL = ();
 	my %OLD_INSTANCE = %LD_INSTANCE;
 	my %RELOAD;
 	my %STOP;
@@ -2766,7 +2765,7 @@ sub check_sql
 	require DBI;
 	my ($v, $r, $dbd, $dbname) = @_;
 	my $port = ld_checkport($v, $r);
-	my ($dbh, $sth, $query, $rows, $result);
+	my ($dbh, $sth, $query, $row, $result);
 	$result = $SERVICE_DOWN;
 	$query = $$r{request};
 	$query =~ s#^/##;
@@ -2804,33 +2803,44 @@ sub check_sql
 		goto err_finish;
 	}
 
-	# On error "execute" will return undef.
+	# After calling "execute" $sth->{NUM_OF_FIELDS} will be greater
+	# than zero for SELECT statements, and 0 for all other statements.
 	#
-	# Assuming you're using 'SELECT' you will get the number of rows
-	# returned from the db when running execute: the 'rows' method is
-	# only used when doing something that is NOT a select.  I cannot
-	# imagine that you would ever want to insert or update from a
-	# regular polling on this system, so we will assume you are using
-	# SELECT here.
-	#
-	# Ideally you will do something like this: 'select * from
-	# director_slave where enabled=1' This way you can have, say, a
-	# MEMORY table in MySQL where you insert a value into a row
-	# (enabled) that says whether or not you want to actually use this
-	# in the pool from ldirector / ipvs, and disable them without
-	# actually turning off your sql server.
-
-	unless ($rows = $sth->execute) {
-		check_sql_log_errstr("Error executing statement:",
-				     $dbh->errstr, $dbh->err);
-		goto err_finish;
+	# For non-SELECT statements a non-undef value returned by
+	# "execcute" inticates the number of rows returned.  "0E0" (Some
+	# garbage to make 0 true) or > 1.  But testing for this isn't
+	# particularly interesting as its quite valid for operations to
+	# affect 0 rows. So for non-SELECT statements, if "execute"
+	# doesn't return undef, consider the test a success.
+	unless ($sth->{NUM_OF_FIELDS}) {
+		goto out;
 	}
 
-	# Actually look to see if there was data returned in this statement,
-	# else disable node
-	if($rows > 0) {
-		goto out;
-	} else {
+	# For SELECT staements "execute" will always return a true
+	# value unless an error occurs. A "fetch" operation is performed
+	# to obtain the row returned by the SELECT statement. Again 0
+	# rows is valid.
+	#
+	# I suspect that for at leaast some DB engines "execute" will
+	# always succeed unless there is some bizzare internal error.
+	# So it seems that in order to have a reasonable test "fetch"
+	# needs to be called.
+	#
+	# I also wonder if having a table missing
+	# will result in an error or just 0 rows returned. If the
+	# latter is true then I guess we need to consider 0 rows an
+	# error state. But I'll have the code consider 0 rows a success
+	# for now leave this to be changed if testing proves it neccessary.
+
+	# As it is important that the SELECT succeeded, rather than
+	# how may rows it returns, just call "fetchrow_arrayref" once.
+	#
+	# I guess that in a pathalogical case the query may fail
+	# at a particular row. But I'm not going to worry about that for
+	# now.
+	$row = $sth->fetchrow_arrayref;
+	unless ($row && !$sth->err) {
+		check_sql_log_errstr("Error fetching row:", $dbh->errstr);
 		goto err_finish;
 	}
 

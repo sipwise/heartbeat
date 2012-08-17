@@ -36,12 +36,11 @@
 #
 # Short-Description: High-availability services.
 # Provides: heartbeat HA
-# Required-Start: $remote_fs $network $time $syslog
-# Should-Start: openhpid
-# Required-Stop: $remote_fs $network $time $syslog
-# Should-stop: openhpid
-# Default-Start: 2 3 4 5
-# Default-Stop: 0 1 6
+# Required-Start: $network $time $syslog
+# Should-Start: ntp
+# Required-Stop: $network $time $syslog
+# Default-Start: 3 5
+# Default-Stop: 0 6
 ### END INIT INFO
 
 
@@ -333,7 +332,7 @@ StopHA() {
   EchoNoNl "Stopping High-Availability services: "
 
   if
-    $HA_BIN/heartbeat -k >/dev/null 2>&1	# Kill it
+    $HA_BIN/heartbeat -k &> /dev/null	# Kill it
   then
     echo_success
     return 0

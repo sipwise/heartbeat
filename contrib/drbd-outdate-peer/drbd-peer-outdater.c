@@ -76,7 +76,7 @@ outdate_callback(IPC_Channel * server, gpointer user_data)
 
 	msg = msgfromIPC_noauth(server);
 	if (!msg) {
-		cl_log(LOG_WARNING, "no message from server or other "
+		fprintf(stderr, "no message from server or other "
 				"instance is running\n");
 		if (client->mainloop != NULL &&
 		    g_main_is_running(client->mainloop))
@@ -92,7 +92,7 @@ outdate_callback(IPC_Channel * server, gpointer user_data)
 	errno = 0;
 	rc = strtol(rc_string, &ep, 10);
 	if (errno != 0 || *ep != EOS) {
-		cl_log(LOG_WARNING, "unknown message: %s from server", rc_string);
+		fprintf(stderr, "unknown message: %s from server", rc_string);
 		client->rc = 20; /* "officially undefined", unspecified error */
 		ha_msg_del(msg);
 		if (client->mainloop != NULL &&
@@ -124,7 +124,7 @@ static gboolean
 outdater_timeout_dispatch(gpointer user_data)
 {
 	dop_client_t *client = (dop_client_t *)user_data;
-	cl_log(LOG_WARNING, "error: could not connect to dopd after %i seconds"
+	fprintf(stderr, "error: could not connect to dopd after %i seconds"
 			": timeout reached\n", client->timeout);
 	if (client->mainloop != NULL && g_main_is_running(client->mainloop))
 		g_main_quit(client->mainloop);
@@ -255,7 +255,7 @@ main(int argc, char ** argv)
 					 (gpointer)new_client, &ipc_server);
 
 	if (ipc_server == NULL) {
-		cl_log(LOG_WARNING, "Could not connect to "T_OUTDATER" channel\n");
+		fprintf(stderr, "Could not connect to "T_OUTDATER" channel\n");
 		dop_exit(new_client); /* unreachable */
 	}
 
@@ -267,7 +267,7 @@ main(int argc, char ** argv)
 	ha_msg_add(update, F_OUTDATER_RES, drbd_resource);
 
 	if (msg2ipcchan(update, ipc_server) != HA_OK) {
-		cl_log(LOG_WARNING, "Could not send message\n");
+		fprintf(stderr, "Could not send message\n");
 		dop_exit(new_client);
 	}
 
