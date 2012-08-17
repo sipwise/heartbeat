@@ -52,7 +52,7 @@ patch:
 unpatch:
 	override_version=$(RELEASE) sh debian/apply $(UPSTREAM)
 
-configure: checkbuild
+configure: checkbuild patch
 	dh_testdir
 	# Allow debian packages to also be built directly from Hg archives
 	# Official debian packages are built from dist tarballs
