@@ -1,3 +1,11 @@
+heartbeat-2 (2.1.3-7~sipwise1) squeeze-backports; urgency=low
+
+  [ Richard Fuchs ]
+  * IPv6 addr stalls takeover by 5 seconds due to sending UAs
+    put this into background
+
+ -- Michael Prokop <mprokop@sipwise.com>  Fri, 17 Aug 2012 18:16:55 +0200
+
 heartbeat-2 (2.1.3-6lenny4~bpo60+2) squeeze-backports; urgency=low
 
   * Conflict with cluster-agents package (file conflict due
