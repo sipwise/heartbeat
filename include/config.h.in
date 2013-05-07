@@ -1,0 +1,639 @@
+/* include/config.h.in.  Generated from configure.in by autoheader.  */
+
+/* Set if CLOCK_T is adequate by itself for the "indefinite future" (>= 100
+   years) */
+#undef CLOCK_T_IS_LONG_ENOUGH
+
+/* Use libc malloc instead of Heartbeat's custom one. */
+#undef CL_USE_LIBC_MALLOC
+
+/* big-endian */
+#undef CONFIG_BIG_ENDIAN
+
+/* little-endian */
+#undef CONFIG_LITTLE_ENDIAN
+
+/* disable times(2) kludge */
+#undef DISABLE_TIMES_KLUDGE
+
+/* enable -dlpreopen flag */
+#undef DLPREOPEN
+
+/* pid inconsistent */
+#undef GETPID_INCONSISTENT
+
+/* Define to 1 if you have the `alphasort' function. */
+#undef HAVE_ALPHASORT
+
+/* Define to 1 if you have the <arpa/inet.h> header file. */
+#undef HAVE_ARPA_INET_H
+
+/* Define to 1 if you have the <asm/page.h> header file. */
+#undef HAVE_ASM_PAGE_H
+
+/* Define to 1 if you have the <bzlib.h> header file. */
+#undef HAVE_BZLIB_H
+
+/* Define to 1 if you have the <curl/curl.h> header file. */
+#undef HAVE_CURL_CURL_H
+
+/* Define to 1 if you have the <curses/curses.h> header file. */
+#undef HAVE_CURSES_CURSES_H
+
+/* Define to 1 if you have the <curses.h> header file. */
+#undef HAVE_CURSES_H
+
+/* Define to 1 if you have the `daemon' function. */
+#undef HAVE_DAEMON
+
+/* Define to 1 if you have the <db.h> header file. */
+#undef HAVE_DB_H
+
+/* Have getopt function */
+#undef HAVE_DECL_GETOPT
+
+/* Define to 1 if you have the declaration of `tzname', and to 0 if you don't.
+   */
+#undef HAVE_DECL_TZNAME
+
+/* Define to 1 if you have the <dlfcn.h> header file. */
+#undef HAVE_DLFCN_H
+
+/* Define to 1 if you have the <evs.h> header file. */
+#undef HAVE_EVS_H
+
+/* Define to 1 if you have the `fcntl' function. */
+#undef HAVE_FCNTL
+
+/* Define to 1 if you have the `flock' function. */
+#undef HAVE_FLOCK
+
+/* Define to 1 if you have the `getopt' function. */
+#undef HAVE_GETOPT
+
+/* Define to 1 if you have the <getopt.h> header file. */
+#undef HAVE_GETOPT_H
+
+/* Define to 1 if you have the `getpeereid' function. */
+#undef HAVE_GETPEEREID
+
+/* Define to 1 if you have the `getpeerucred' function. */
+#undef HAVE_GETPEERUCRED
+
+/* Define to 1 if you have the <gnutls/gnutls.h> header file. */
+#undef HAVE_GNUTLS_GNUTLS_H
+
+/* Define to 1 if you have the <hbaapi.h> header file. */
+#undef HAVE_HBAAPI_H
+
+/* Do we have incompatible printw() in curses library? */
+#undef HAVE_INCOMPATIBLE_PRINTW
+
+/* Define to 1 if you have the `inet_aton' function. */
+#undef HAVE_INET_ATON
+
+/* Define to 1 if you have the `inet_pton' function. */
+#undef HAVE_INET_PTON
+
+/* Define to 1 if you have the <inttypes.h> header file. */
+#undef HAVE_INTTYPES_H
+
+/* Define to 1 if you have the `bz2' library (-lbz2). */
+#undef HAVE_LIBBZ2
+
+/* Define to 1 if you have the `c' library (-lc). */
+#undef HAVE_LIBC
+
+/* have curses library */
+#undef HAVE_LIBCURSES
+
+/* Define to 1 if you have the `dl' library (-ldl). */
+#undef HAVE_LIBDL
+
+/* Define to 1 if you have the `evs' library (-levs). */
+#undef HAVE_LIBEVS
+
+/* Define to 1 if you have the `gnugetopt' library (-lgnugetopt). */
+#undef HAVE_LIBGNUGETOPT
+
+/* Define to 1 if you have the `gnutls' library (-lgnutls). */
+#undef HAVE_LIBGNUTLS
+
+/* Define to 1 if you have the `HBAAPI' library (-lHBAAPI). */
+#undef HAVE_LIBHBAAPI
+
+/* Define to 1 if you have the <libintl.h> header file. */
+#undef HAVE_LIBINTL_H
+
+/* have ncurses library */
+#undef HAVE_LIBNCURSES
+
+/* Define to 1 if you have the `net' library (-lnet). */
+#undef HAVE_LIBNET
+
+/* Libnet 1.0 API */
+#undef HAVE_LIBNET_1_0_API
+
+/* Libnet 1.1 API */
+#undef HAVE_LIBNET_1_1_API
+
+/* Define to 1 if you have the <libnet.h> header file. */
+#undef HAVE_LIBNET_H
+
+/* Define to 1 if you have the `nsl' library (-lnsl). */
+#undef HAVE_LIBNSL
+
+/* Define to 1 if you have the `pam' library (-lpam). */
+#undef HAVE_LIBPAM
+
+/* Define to 1 if you have the `posix4' library (-lposix4). */
+#undef HAVE_LIBPOSIX4
+
+/* Define to 1 if you have the `rt' library (-lrt). */
+#undef HAVE_LIBRT
+
+/* Define to 1 if you have the `socket' library (-lsocket). */
+#undef HAVE_LIBSOCKET
+
+/* Define to 1 if you have the <libutil.h> header file. */
+#undef HAVE_LIBUTIL_H
+
+/* Define to 1 if you have the `uuid' library (-luuid). */
+#undef HAVE_LIBUUID
+
+/* Define to 1 if you have the `xml2' library (-lxml2). */
+#undef HAVE_LIBXML2
+
+/* Define to 1 if you have the <libxml/xpath.h> header file. */
+#undef HAVE_LIBXML_XPATH_H
+
+/* Define to 1 if you have the `z' library (-lz). */
+#undef HAVE_LIBZ
+
+/* Define to 1 if you have the <linux/icmpv6.h> header file. */
+#undef HAVE_LINUX_ICMPV6_H
+
+/* Define to 1 if you have the <linux/watchdog.h> header file. */
+#undef HAVE_LINUX_WATCHDOG_H
+
+/* Define to 1 if you have the `mallinfo' function. */
+#undef HAVE_MALLINFO
+
+/* Define to 1 if you have the <malloc.h> header file. */
+#undef HAVE_MALLOC_H
+
+/* Define to 1 if you have the `mallopt' function. */
+#undef HAVE_MALLOPT
+
+/* Define to 1 if you have the <memory.h> header file. */
+#undef HAVE_MEMORY_H
+
+/* Define to 1 if you have the <ncurses.h> header file. */
+#undef HAVE_NCURSES_H
+
+/* Define to 1 if you have the <ncurses/ncurses.h> header file. */
+#undef HAVE_NCURSES_NCURSES_H
+
+/* Define to 1 if you have the <netinet/in.h> header file. */
+#undef HAVE_NETINET_IN_H
+
+/* Define to 1 if you have the <netinet/in_systm.h> header file. */
+#undef HAVE_NETINET_IN_SYSTM_H
+
+/* Define to 1 if you have the <netinet/ip_compat.h> header file. */
+#undef HAVE_NETINET_IP_COMPAT_H
+
+/* Define to 1 if you have the <netinet/ip_fw.h> header file. */
+#undef HAVE_NETINET_IP_FW_H
+
+/* Define to 1 if you have the <netinet/ip.h> header file. */
+#undef HAVE_NETINET_IP_H
+
+/* Define to 1 if you have the <netinet/ip_var.h> header file. */
+#undef HAVE_NETINET_IP_VAR_H
+
+/* Define to 1 if you have the <net/ethernet.h> header file. */
+#undef HAVE_NET_ETHERNET_H
+
+/* Define to 1 if you have the <net-snmp/net-snmp-config.h> header file. */
+#undef HAVE_NET_SNMP_NET_SNMP_CONFIG_H
+
+/* Define to 1 if you have the <net/tipc/tipc.h> header file. */
+#undef HAVE_NET_TIPC_TIPC_H
+
+/* have new heartbeat api */
+#undef HAVE_NEW_HB_API
+
+/* Do we have nfds_t? */
+#undef HAVE_NFDS_T
+
+/* Define to 1 if you have the `NoSuchFunctionName' function. */
+#undef HAVE_NOSUCHFUNCTIONNAME
+
+/* Define to 1 if you have the <openhpi/SaHpi.h> header file. */
+#undef HAVE_OPENHPI_SAHPI_H
+
+/* Define to 1 if you have the <pam/pam_appl.h> header file. */
+#undef HAVE_PAM_PAM_APPL_H
+
+/* Define to 1 if /proc/{pid} is supported. */
+#undef HAVE_PROC_PID
+
+/* Define to 1 if you have the `pstat' function. */
+#undef HAVE_PSTAT
+
+/* Define to 1 if you have the `scandir' function. */
+#undef HAVE_SCANDIR
+
+/* Define to 1 if you have the <security/pam_appl.h> header file. */
+#undef HAVE_SECURITY_PAM_APPL_H
+
+/* Define to 1 if you have the `setegid' function. */
+#undef HAVE_SETEGID
+
+/* Define to 1 if you have the `setenv' function. */
+#undef HAVE_SETENV
+
+/* Define to 1 if you have the `seteuid' function. */
+#undef HAVE_SETEUID
+
+/* */
+#undef HAVE_SETPROCTITLE
+
+/* Define to 1 if you have the `sigignore' function. */
+#undef HAVE_SIGIGNORE
+
+/* */
+#undef HAVE_SOCKADDR_IN_SIN_LEN
+
+/* Define to 1 if you have the <stdarg.h> header file. */
+#undef HAVE_STDARG_H
+
+/* Define to 1 if you have the <stdint.h> header file. */
+#undef HAVE_STDINT_H
+
+/* Define to 1 if you have the <stdlib.h> header file. */
+#undef HAVE_STDLIB_H
+
+/* Define to 1 if you have the `strerror' function. */
+#undef HAVE_STRERROR
+
+/* Define to 1 if cpp supports the ANSI # stringizing operator. */
+#undef HAVE_STRINGIZE
+
+/* Define to 1 if you have the <strings.h> header file. */
+#undef HAVE_STRINGS_H
+
+/* Define to 1 if you have the <string.h> header file. */
+#undef HAVE_STRING_H
+
+/* Define to 1 if you have the `strlcat' function. */
+#undef HAVE_STRLCAT
+
+/* Define to 1 if you have the `strlcpy' function. */
+#undef HAVE_STRLCPY
+
+/* Define to 1 if you have the `strndup' function. */
+#undef HAVE_STRNDUP
+
+/* Define to 1 if you have the `strnlen' function. */
+#undef HAVE_STRNLEN
+
+/* Define to 1 if you have the <stropts.h> header file. */
+#undef HAVE_STROPTS_H
+
+/* Do we have struct cmsgcred? */
+#undef HAVE_STRUCT_CMSGCRED
+
+/* Do we have struct cred? */
+#undef HAVE_STRUCT_CRED
+
+/* Do we have struct fcred? */
+#undef HAVE_STRUCT_FCRED
+
+/* Do we have struct sockcred? */
+#undef HAVE_STRUCT_SOCKCRED
+
+/* Define to 1 if `tm_zone' is member of `struct tm'. */
+#undef HAVE_STRUCT_TM_TM_ZONE
+
+/* Do we have struct ucred? */
+#undef HAVE_STRUCT_UCRED
+
+/* Do we have the Darwin version of struct ucred? */
+#undef HAVE_STRUCT_UCRED_DARWIN
+
+/* */
+#undef HAVE_SYSLOG_FACILITYNAMES
+
+/* Define to 1 if you have the <sys/cred.h> header file. */
+#undef HAVE_SYS_CRED_H
+
+/* Define to 1 if you have the <sys/filio.h> header file. */
+#undef HAVE_SYS_FILIO_H
+
+/* Define to 1 if you have the <sys/param.h> header file. */
+#undef HAVE_SYS_PARAM_H
+
+/* Define to 1 if you have the <sys/prctl.h> header file. */
+#undef HAVE_SYS_PRCTL_H
+
+/* Define to 1 if you have the <sys/pstat.h> header file. */
+#undef HAVE_SYS_PSTAT_H
+
+/* Define to 1 if you have the <sys/reboot.h> header file. */
+#undef HAVE_SYS_REBOOT_H
+
+/* Define to 1 if you have the <sys/socket.h> header file. */
+#undef HAVE_SYS_SOCKET_H
+
+/* Define to 1 if you have the <sys/sockio.h> header file. */
+#undef HAVE_SYS_SOCKIO_H
+
+/* Define to 1 if you have the <sys/stat.h> header file. */
+#undef HAVE_SYS_STAT_H
+
+/* Define to 1 if you have the <sys/syslimits.h> header file. */
+#undef HAVE_SYS_SYSLIMITS_H
+
+/* Define to 1 if you have the <sys/termios.h> header file. */
+#undef HAVE_SYS_TERMIOS_H
+
+/* Define to 1 if you have the <sys/types.h> header file. */
+#undef HAVE_SYS_TYPES_H
+
+/* Define to 1 if you have the <sys/ucred.h> header file. */
+#undef HAVE_SYS_UCRED_H
+
+/* Define to 1 if you have the <tcpd.h> header file. */
+#undef HAVE_TCPD_H
+
+/* */
+#undef HAVE_TERMIOS_C_LINE
+
+/* Define to 1 if you have the <termios.h> header file. */
+#undef HAVE_TERMIOS_H
+
+/* Define to 1 if you have the <termio.h> header file. */
+#undef HAVE_TERMIO_H
+
+/* Define to 1 if you have the <time.h> header file. */
+#undef HAVE_TIME_H
+
+/* Do we have structure member tm_gmtoff? */
+#undef HAVE_TM_GMTOFF
+
+/* Define to 1 if your `struct tm' has `tm_zone'. Deprecated, use
+   `HAVE_STRUCT_TM_TM_ZONE' instead. */
+#undef HAVE_TM_ZONE
+
+/* Define to 1 if you don't have `tm_zone' but do have the external array
+   `tzname'. */
+#undef HAVE_TZNAME
+
+/* Define to 1 if you have the <ucd-snmp/snmp.h> header file. */
+#undef HAVE_UCD_SNMP_SNMP_H
+
+/* Define to 1 if you have the <ucred.h> header file. */
+#undef HAVE_UCRED_H
+
+/* Define to 1 if you have the <unistd.h> header file. */
+#undef HAVE_UNISTD_H
+
+/* Define to 1 if you have the `unsetenv' function. */
+#undef HAVE_UNSETENV
+
+/* Define to 1 if you have the <uuid.h> header file. */
+#undef HAVE_UUID_H
+
+/* Define to 1 if you have the `uuid_parse' function. */
+#undef HAVE_UUID_PARSE
+
+/* Define to 1 if you have the <uuid/uuid.h> header file. */
+#undef HAVE_UUID_UUID_H
+
+/* Define to 1 if you have the <vacmclient_api.h> header file. */
+#undef HAVE_VACMCLIENT_API_H
+
+/* Define to 1 if you have the <xti.h> header file. */
+#undef HAVE_XTI_H
+
+/* Define to 1 if you have the <zlib.h> header file. */
+#undef HAVE_ZLIB_H
+
+/* Define to 1 if you have the `__default_morecore' function. */
+#undef HAVE___DEFAULT_MORECORE
+
+/* */
+#undef HAVE___PROGNAME
+
+/* id for api group */
+#undef HA_APIGID
+
+/* group for our programs */
+#undef HA_APIGROUP
+
+/* id for ccm user */
+#undef HA_CCMUID
+
+/* user to run privileged non-root things as */
+#undef HA_CCMUSER
+
+/* top directory of area to drop core files in */
+#undef HA_COREDIR
+
+/* data (arch-independent) directory */
+#undef HA_DATADIR
+
+/* Heartbeat configuration directory */
+#undef HA_HBCONF_DIR
+
+/* lib directory */
+#undef HA_LIBDIR
+
+/* $HB_PKG lib directory */
+#undef HA_LIBHBDIR
+
+/* Logging Daemon IPC socket name */
+#undef HA_LOGDAEMON_IPC
+
+/* Default logging facility */
+#undef HA_LOG_FACILITY
+
+/* $HB_PKG noarch data directory */
+#undef HA_NOARCHDATAHBDIR
+
+/* PILS plugin dir */
+#undef HA_PLUGIN_DIR
+
+/* heartbeat v1 script directory */
+#undef HA_RC_DIR
+
+/* Location of system configuration files */
+#undef HA_SYSCONFDIR
+
+/* Web site base URL */
+#undef HA_URLBASE
+
+/* var lib directory */
+#undef HA_VARLIBDIR
+
+/* var lib heartbeat directory */
+#undef HA_VARLIBHBDIR
+
+/* System lock directory */
+#undef HA_VARLOCKDIR
+
+/* var log directory */
+#undef HA_VARLOGDIR
+
+/* var run directory */
+#undef HA_VARRUNDIR
+
+/* var run heartbeat directory */
+#undef HA_VARRUNHBDIR
+
+/* var run heartbeat rsctmp directory */
+#undef HA_VARRUNHBRSCDIR
+
+/* init start priority */
+#undef HB_INITSTARTPRI
+
+/* init stop priority */
+#undef HB_INITSTOPPRI
+
+/* Location for v1 Heartbeat v1 RAs */
+#undef HB_RA_DIR
+
+/* path to the ifconfig command */
+#undef IFCONFIG
+
+/* option for ifconfig command */
+#undef IFCONFIG_A_OPT
+
+/* LRM plugin dir */
+#undef LRM_PLUGIN_DIR
+
+/* Location for LSB RAs */
+#undef LSB_RA_DIR
+
+/* Define to 1 if the mgmt-daemon and friends are enabled. */
+#undef MGMT_ENABLED
+
+/* path to the netstat command */
+#undef NETSTAT
+
+/* parameters to netstat to retrieve route information */
+#undef NETSTATPARM
+
+/* Location for OCF RAs */
+#undef OCF_RA_DIR
+
+/* OCF root directory - specified by the OCF standard */
+#undef OCF_ROOT_DIR
+
+/* Compiling for Darwin platform */
+#undef ON_DARWIN
+
+/* Name of package */
+#undef PACKAGE
+
+/* Define to the address where bug reports for this package should be sent. */
+#undef PACKAGE_BUGREPORT
+
+/* Define to the full name of this package. */
+#undef PACKAGE_NAME
+
+/* Define to the full name and version of this package. */
+#undef PACKAGE_STRING
+
+/* Define to the one symbol short name of this package. */
+#undef PACKAGE_TARNAME
+
+/* Define to the version of this package. */
+#undef PACKAGE_VERSION
+
+/* mechanism to pretty-print ps output: setproctitle-equivalent */
+#undef PF_ARGV_TYPE
+
+/* option for ping timeout */
+#undef PING_TIMEOUT_OPT
+
+/* path to the poweroff command */
+#undef POWEROFF_CMD
+
+/* poweroff options */
+#undef POWEROFF_OPTIONS
+
+/* path were to find route information in proc */
+#undef PROCROUTE
+
+/* path to the reboot command */
+#undef REBOOT
+
+/* reboot options */
+#undef REBOOT_OPTIONS
+
+/* path to route command */
+#undef ROUTE
+
+/* paramters for route to retrieve route information */
+#undef ROUTEPARM
+
+/* The size of `char', as computed by sizeof. */
+#undef SIZEOF_CHAR
+
+/* The size of `int', as computed by sizeof. */
+#undef SIZEOF_INT
+
+/* The size of `long', as computed by sizeof. */
+#undef SIZEOF_LONG
+
+/* The size of `long long', as computed by sizeof. */
+#undef SIZEOF_LONG_LONG
+
+/* The size of `short', as computed by sizeof. */
+#undef SIZEOF_SHORT
+
+/* Define to 1 if you have the ANSI C header files. */
+#undef STDC_HEADERS
+
+/* directory for the external stonith plugins */
+#undef STONITH_EXT_PLUGINDIR
+
+/* Location for STONITH RAs */
+#undef STONITH_RA_DIR
+
+/* Define to 1 if your <sys/time.h> declares `struct tm'. */
+#undef TM_IN_SYS_TIME
+
+/* Name of UCD SNMP development package */
+#undef UCDSNMPDEVEL
+
+/* Valgrind command */
+#undef VALGRIND_BIN
+
+/* Valgrind logging options */
+#undef VALGRIND_LOG
+
+/* Name of a suppression file to pass to Valgrind */
+#undef VALGRIND_SUPP
+
+/* Version number of package */
+#undef VERSION
+
+/* Use the new Cluster Resource Manager */
+#undef WITH_CRM
+
+/* Define to 1 if `lex' declares `yytext' as a `char *' by default, not a
+   `char[]'. */
+#undef YYTEXT_POINTER
+
+/* Number of bits in a file offset, on hosts where this is settable. */
+#undef _FILE_OFFSET_BITS
+
+/* Define for large files, on AIX-style hosts. */
+#undef _LARGE_FILES
+
+/* Define to `unsigned int' if <sys/types.h> does not define. */
+#undef size_t

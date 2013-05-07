@@ -1,0 +1,182 @@
+#!/usr/bin/make -f
+# Sample debian/rules that uses debhelper.
+# Copyright 1997 to 1999 by Joey Hess.
+# License: GNU General Public License (GPL)
+
+#Thanks to Paolo Molaro <lupus@debian.org> and heartbeat_0.4.6-2.diff
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+#
+# Path to SSH and SCP
+# Usually this is guessed if ssh is installed.
+# However, there is a long standing bug with installing ssh
+# on arm in debian and this is preventing heartbeat from
+# moving into sarge. By adding this we can remove the build
+# dependancy on ssh and get an updated heartbeat into sarge... 
+# I hope. Horms 26th July 2004
+#
+# If this is removed then the build depandancy on ssh should be
+# restored
+#
+
+cfg:=--prefix=/usr --sysconfdir=/etc --localstatedir=/var \
+  --mandir=/usr/share/man \
+  --with-group-name=haclient --with-ccmuser-name=hacluster \
+  --enable-snmp-subagent --with-mibsdir=/usr/share/snmp/mibs \
+  --disable-fatal-warnings --enable-mgmt --enable-glib-malloc
+
+# These are used for cross-compiling and for saving the configure script
+# from having to guess our platform (since we know it already)
+DEB_HOST_GNU_TYPE   ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
+DEB_BUILD_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
+
+CFLAGS = -Wall -g
+ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
+       CFLAGS += -O0
+else
+       CFLAGS += -O2
+endif
+ifeq (,$(findstring nostrip,$(DEB_BUILD_OPTIONS)))
+       INSTALL_PROGRAM += -s
+endif
+
+DTMP:=`pwd`/debian/tmp
+RELEASE := $(shell dpkg-parsechangelog | awk '/^Version: / { print $$2 }')
+UPSTREAM := $(shell echo "$(RELEASE)" | sed 's/:\?\([0-9\.]\+\)-[0-9].*/\1/')
+
+patch:
+	override_version=$(RELEASE) sh debian/apply
+
+unpatch:
+	override_version=$(RELEASE) sh debian/apply $(UPSTREAM)
+
+
+build: checkbuild build-stamp
+build-stamp:
+	dh_testdir
+	# Allow debian packages to also be built directly from Hg archives
+	# Official debian packages are built from dist tarballs
+	test ! -e ./configure || ./configure $(cfg)
+	test -e ./configure || ./bootstrap $(cfg)
+	$(MAKE)
+	touch build-stamp
+
+clean:
+	dh_testdir
+	dh_testroot
+	# Add here commands to clean up after the build process.
+	-$(MAKE) clean MAKE=make
+	-$(MAKE) distclean MAKE=make
+	rm -f tools/ccdv
+	dh_clean build-stamp install-stamp
+	rm -f debian/init debian/*.debhelper debian/*.substvars config.log
+	rm -r -f debian/heartbeat debian/heartbeat-dev debian/ldirectord \
+		debian/libpils0 debian/libpils-dev \
+		debian/libstonith0 debian/libstonith-dev debian/stonith \
+		debian/tmp
+
+	# Zero autoconf foo
+	rm -f config.status libltdl/config.log libltdl/config.status 
+
+
+install: build install-stamp
+install-stamp:
+	dh_testdir
+	dh_testroot
+	dh_clean -k
+	dh_installdirs
+	$(MAKE) install DESTDIR=$(DTMP) \
+	  MAKE=make \
+	  docdir=/usr/share/doc/heartbeat
+
+	mv $(DTMP)/usr/share/heartbeat/cts/README \
+		$(DTMP)/usr/share/doc/heartbeat/README.cts
+	mv $(DTMP)/usr/share/heartbeat/lrmtest/README.regression \
+		$(DTMP)/usr/share/doc/heartbeat/README.lrm_regression_tests
+	find $(DTMP)/usr/share/man -type f | xargs gzip -v --best
+	install -c -m 755 heartbeat/init.d/heartbeat \
+                $(DTMP)/etc/init.d/heartbeat
+	-mkdir -p $(DTMP)/usr/share/doc/ldirectord/
+	install -c -m 644 ldirectord/ldirectord.cf \
+	  $(DTMP)/usr/share/doc/ldirectord/
+	-mkdir -p $(DTMP)/etc/init.d
+	install -c -m 755 ldirectord/init.d/ldirectord.debian \
+		$(DTMP)/etc/init.d/ldirectord
+	-mkdir -p $(DTMP)/etc/default/
+	install -c -m 755 ldirectord/init.d/ldirectord.debian.default \
+		$(DTMP)/etc/default/ldirectord
+	cd $(DTMP)/etc/ && ln -s ha.d heartbeat
+	dh_movefiles --source=debian/tmp
+
+binary-indep: build install
+	dh_testdir -i
+	dh_testroot -i
+	dh_installdebconf -i
+	dh_installdocs -i
+	dh_installexamples -i
+#	dh_installmenu -i
+#	dh_installemacsen -i
+#	dh_installpam -i
+	dh_installinit -i -n -u 'defaults 20 32'
+#	dh_installcron -i
+	dh_installman -i
+#	dh_installinfo -i
+#	dh_undocumented -i
+	dh_installchangelogs -i
+	dh_link -i
+	dh_strip -i
+	dh_compress -i
+	dh_fixperms -i
+#	dh_suidregister -i
+	dh_makeshlibs -i -V
+	dh_installdeb -i
+	dh_perl -i
+	dh_pycentral -i
+	dh_python -i `pwd`/usr/lib/heartbeat/cts `pwd`/usr/lib/heartbeat
+	dh_shlibdeps -i
+	dh_gencontrol -i
+	dh_md5sums -i
+	dh_builddeb -i
+
+binary-arch: build install
+	dh_testdir -a
+	dh_testroot -a
+	dh_installdebconf -a
+	dh_installdocs -a
+	dh_installexamples -a
+#	dh_installmenu -a
+#	dh_installemacsen -a
+#	dh_installpam -a
+	dh_installinit -a -n -u 'defaults 20 32'
+#	dh_installcron -a
+	dh_installman -a
+#	dh_installinfo -a
+#	dh_undocumented -a
+	dh_installchangelogs -a `pwd`/doc/ChangeLog
+	dh_link -a
+	dh_strip -a
+	dh_compress -a
+	dh_fixperms -a --exclude usr/bin/cl_status
+#	dh_suidregister -a
+	dh_makeshlibs -a -V
+	dh_installdeb -a
+	dh_perl -a
+	dh_pycentral -a
+	dh_python -a `pwd`/usr/lib/heartbeat/cts `pwd`/usr/lib/heartbeat
+	dh_shlibdeps -a
+	dh_gencontrol -a
+	dh_md5sums -a
+	dh_builddeb -a
+
+binary: binary-indep binary-arch
+	@echo "Any unpackaged files follow (.a and .la files omitted):"
+	@cd $(DTMP) && find ./ \! -type d | egrep -v \\\.l?a
+
+checkbuild:
+	chmod u+x ./debian/dpkg-checkbuild
+	./debian/dpkg-checkbuild debian/control
+
+.PHONY: build clean binary binary-indep binary-arch install checkbuild \
+	patch unpatch
