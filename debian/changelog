@@ -1,4 +1,4 @@
-heartbeat-2 (2.1.3+ngcp.1) unstable; urgency=low
+heartbeat-2 (2.1.3+1ngcp.1) unstable; urgency=low
 
   * Non-maintainer upload, adjusting package version for native
     packaging in Git.

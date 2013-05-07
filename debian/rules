@@ -43,14 +43,11 @@ ifeq (,$(findstring nostrip,$(DEB_BUILD_OPTIONS)))
 endif
 
 DTMP:=`pwd`/debian/tmp
-RELEASE := $(shell dpkg-parsechangelog | awk '/^Version: / { print $$2 }')
-UPSTREAM := $(shell echo "$(RELEASE)" | sed 's/:\?\([0-9\.]\+\)-[0-9].*/\1/')
-
 patch:
-	override_version=$(RELEASE) sh debian/apply
+	dh_quilt_patch
 
 unpatch:
-	override_version=$(RELEASE) sh debian/apply $(UPSTREAM)
+	dh_quilt_unpatch
 
 configure: checkbuild patch
 	dh_testdir

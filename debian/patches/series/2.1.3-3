@@ -1,4 +1,0 @@
-+ bashisms.patch
-+ ldirectord-fix-sql-select-queries.patch
-+ ldirectord-clear-config-in-memory-on-reload.patch
-+ lrm-dont-revise-op_status.patch
