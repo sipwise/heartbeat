@@ -14,3 +14,4 @@ dopd-fix-basic-failover-fix-hb-message-corruption-by-fprintf_stderr_.patch
 IPv6addr-64.patch
 o2cb-INITDIR.patch
 IPv6addr-background-UA.patch
+cherry-pick-upstream-de3074ce2c9718725a374bcd2199ebc.patch
