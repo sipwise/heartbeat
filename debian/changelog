@@ -1,3 +1,18 @@
+heartbeat-2 (2.1.3-7~sipwise4) unstable; urgency=low
+
+  [ Michael Prokop ]
+  * Use 3.0 (quilt) format for Debian packaging
+  * Fix formating of debian/patches/ldirectord-init-lsb.patch
+  * And another formating fix
+  * Another formating fix
+  * Formating fix for debian/patches/ldirectord-rows.patch
+  * add single-debian-patch to debian/source/options
+
+  [ Andrew Pogrebennyk ]
+  * update changelog
+
+ -- Andrew Pogrebennyk <apogrebennyk@sipwise.com>  Wed, 07 Aug 2013 13:11:00 +0200
+
 heartbeat-2 (2.1.3-7~sipwise3) unstable; urgency=low
 
   * Rework patch handling, using quilt now.
