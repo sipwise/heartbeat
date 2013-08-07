@@ -1,0 +1,17 @@
+ipv6-check.patch
+init-remote_fs.patch
+init-openhpid.patch
+init-ntp.patch
+SphinxSearchDaemon.patch
+SphinxSearchDaemon.install.patch
+bashisms.patch
+ldirectord-fix-sql-select-queries.patch
+ldirectord-clear-config-in-memory-on-reload.patch
+lrm-dont-revise-op_status.patch
+ldirectord-init-lsb.patch
+ldirectord-rows.patch
+dopd-fix-basic-failover-fix-hb-message-corruption-by-fprintf_stderr_.patch
+IPv6addr-64.patch
+o2cb-INITDIR.patch
+IPv6addr-background-UA.patch
+cherry-pick-upstream-de3074ce2c9718725a374bcd2199ebc.patch

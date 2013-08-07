@@ -1,0 +1,36 @@
+From: Andreas Granig <agranig@sipwise.com>
+Date: Tue, 6 Nov 2012 14:17:06 +0000
+Subject: [PATCH] Cherry-pick upstream de3074ce2c9718725a374bcd2199ebc077a7d796
+
+findif fails to detect the interface if the default route comes first
+in `cat /proc/net/route`.
+
+See https://github.com/ClusterLabs/resource-agents/issues/52 for details.
+---
+ heartbeat/findif.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/heartbeat/findif.c b/heartbeat/findif.c
+index 86e7f77..2ffbe20 100644
+--- a/heartbeat/findif.c
++++ b/heartbeat/findif.c
+@@ -182,6 +182,7 @@ SearchUsingProcRoute (char *address, struct in_addr *in
+ 		,	PROCROUTE);
+ 		rc = -1; goto out;
+ 	}
++	*best_netmask = 0;
+ 	while (fgets(buf, sizeof(buf), routefd) != NULL) {
+ 		if (sscanf(buf, "%[^\t]\t%lx%lx%lx%lx%lx%lx%lx"
+ 		,	interface, &dest, &gw, &flags, &refcnt, &use
+@@ -192,7 +193,7 @@ SearchUsingProcRoute (char *address, struct in_addr *in
+ 			rc = -1; goto out;
+ 		}
+ 		if ( (in->s_addr&mask) == (in_addr_t)(dest&mask)
+-		&&	metric < best_metric) {
++		&&	metric <= best_metric && mask >= *best_netmask) {
+ 			best_metric = metric;
+ 			*best_netmask = mask;
+ 			strncpy(best_if, interface, best_iflen);
+-- 
+1.8.2.1
+

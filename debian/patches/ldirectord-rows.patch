@@ -58,7 +58,6 @@ BEGIN not safe after errors--compilation aborted at ldirectord line 2924.
 
 Signed-off-by: Simon Horman <horms@verge.net.au>
 
---- 
 Fixes Debian Bug #472663
 See: http://bugs.debian.org
 
