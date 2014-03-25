@@ -1,0 +1,20 @@
+--- a/heartbeat/shellfuncs.in
++++ b/heartbeat/shellfuncs.in
+@@ -113,10 +113,16 @@
+ #	o Using "cat -" rather than "cat" simply for clarity.
+ #	o The trailing "| cat -" tries to hold things together as a single
+ #	  write (which is probably preferable behaviour in this context).
++#
++# use a lockfile to be sure
+ ha_clustermsg() {
+-	(echo ">>>"; cat -; echo "<<<")	| cat - >> $HA_FIFO
++  (
++    flock -x -w 2 9 || exit 1;
++    (echo ">>>"; cat -; echo "<<<";)| cat - >> $HA_FIFO
++  ) 9>/tmp/clustermsg.lock
+ }
+ 
++
+ ha_parameter() {
+   VALUE=`sed -e 's%[ 	][ 	]*% %' -e 's%^ %%' -e 's%#.*%%'   $HA_CF |
+   grep -i "^$1 " | sed 's%[^ ]* %%'`
