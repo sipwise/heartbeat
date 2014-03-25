@@ -15,3 +15,4 @@ IPv6addr-64.patch
 o2cb-INITDIR.patch
 IPv6addr-background-UA.patch
 cherry-pick-upstream-de3074ce2c9718725a374bcd2199ebc.patch
+fix_MT5715.patch
