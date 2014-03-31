@@ -9,7 +9,7 @@
  ha_clustermsg() {
 -	(echo ">>>"; cat -; echo "<<<")	| cat - >> $HA_FIFO
 +  (
-+    flock -x -w 2 9 || return 1;
++    flock -x -w 2 9 || exit 1;
 +    (echo ">>>"; cat -; echo "<<<";)| cat - >> $HA_FIFO
 +  ) 9>/tmp/clustermsg.lock
  }
