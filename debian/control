@@ -1,8 +1,7 @@
 Source: heartbeat-2
 Section: admin
 Priority: optional
-Maintainer: Simon Horman <horms@debian.org>
-Uploaders: Michael Prokop <mprokop@sipwise.com>
+Maintainer: Sipwise Development Team <support@sipwise.com>
 Build-Depends: debhelper (>= 5.0.37.2), libsnmp-dev, libglib2.0-dev, perl, net-tools, iputils-ping, python, psmisc, libnet1-dev, iproute, libtool, libcurl4-openssl-dev | libcurl3-openssl-dev, libxml2-dev, bison, flex, uuid-dev, lynx, libbz2-dev, zlib1g-dev, uuid-dev, libsensors4-dev, libltdl3-dev, swig, openssh-client, libgnutls-dev, python-central (>= 0.5), python-dev, libpam0g-dev, libncurses5-dev, psmisc, libopenhpi-dev, quilt
 Standards-Version: 3.9.5
 XS-Python-Version: current
