@@ -1,3 +1,12 @@
+heartbeat-2 (2.1.3-7~sipwise4+0~mr3.2.2.2) unstable; urgency=low
+
+  [ Victor Seva ]
+  * [7bf0e2c] MT#5715 use locking before write to fifo
+
+  [ Sipwise Jenkins Builder ]
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 19 May 2014 18:17:03 +0200
+
 heartbeat-2 (2.1.3-7~sipwise4+0~mr3.2.2.1) unstable; urgency=low
 
   * New release.
