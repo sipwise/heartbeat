@@ -1,3 +1,18 @@
+heartbeat-2 (2.1.3-7~sipwise4+0~mr3.4.0.0) unstable; urgency=low
+
+  [ Victor Seva ]
+  * [36798db] MT#5715 use locking before write to fifo
+  * [31de592] MT#5715 use return instead of exit
+  * [d4bb287] Revert "MT#5715 use return instead of exit"
+  * [a07e39f] MT#6517 unify Debian Packaging
+
+  [ Michael Prokop ]
+  * [fdf782c] MT#6511 Bump Standards-Version to 3.9.5
+
+  [ Sipwise Jenkins Builder ]
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 26 May 2014 15:41:47 +0200
+
 heartbeat-2 (2.1.3-7~sipwise4+0~mr3.3) unstable; urgency=low
 
   * New release.
