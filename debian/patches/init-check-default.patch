@@ -1,0 +1,42 @@
+--- a/heartbeat/init.d/heartbeat.in
++++ b/heartbeat/init.d/heartbeat.in
+@@ -274,6 +274,15 @@
+   fi
+ }
+ 
++check_default_start() {
++  if [ -f /etc/default/heartbeat-2 ]; then
++    . /etc/default/heartbeat-2
++  fi
++  if [ "$(echo $START_DAEMON|tr '[:upper:]' '[:lower:]')" = "no" ]; then
++    Echo "Start daemon deactived."
++    exit 0
++  fi
++}
+ 
+ #
+ #	Start Linux-HA
+@@ -416,6 +425,7 @@
+ 
+ case "$1" in
+   start)
++  check_default_start
+ 	StartLogd
+ 	RunStartStop pre-start
+ 	StartHA
+@@ -453,6 +463,7 @@
+ 	;;
+ 
+   restart)
++        check_default_start
+         sleeptime=`ha_parameter deadtime`
+ 	StopHA
+ 	Echo
+@@ -466,6 +477,7 @@
+ 	;;
+ 
+   force-reload|reload)
++  check_default_start
+ 	ReloadHA
+ 	Echo
+ 	RC=$?
