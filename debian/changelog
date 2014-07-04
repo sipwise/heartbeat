@@ -1,3 +1,12 @@
+heartbeat-2 (2.1.3-7~sipwise4+0~mr3.2.2.3) unstable; urgency=low
+
+  [ Victor Seva ]
+  * [9330321] MT#7901 Add START_DAEMON check on /etc/default/heartbeat-2
+
+  [ Sipwise Jenkins Builder ]
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Fri, 04 Jul 2014 18:43:55 +0200
+
 heartbeat-2 (2.1.3-7~sipwise4+0~mr3.2.2.2) unstable; urgency=low
 
   [ Victor Seva ]
