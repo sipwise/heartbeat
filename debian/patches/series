@@ -19,3 +19,4 @@ fix_MT5715.patch
 fix_MT7335.patch
 fix-ftbfs-lp1188428.patch
 fix_MT7335_lex.patch
+fix_MT7335_poderror_ldirectord.patch

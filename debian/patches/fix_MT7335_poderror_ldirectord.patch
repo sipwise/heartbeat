@@ -1,0 +1,47 @@
+--- a/ldirectord/ldirectord.in
++++ b/ldirectord/ldirectord.in
+@@ -386,7 +386,7 @@
+ 
+ =item * Otherwise: none
+ 
+-=back 4
++=back
+ 
+ 
+ B<checkcommand = ">I<path to script>B<">
+@@ -407,7 +407,7 @@
+ 
+ =item * real server port
+ 
+-=back 4
++=back
+ 
+ Default: /bin/true
+ 
+@@ -486,7 +486,7 @@
+ =item * Otherwise: empty string, which denotes that
+ 	case authentication will not be attempted.
+ 
+-=back 4
++=back
+ 
+ B<passwd = ">I<password>B<">
+ 
+@@ -507,7 +507,7 @@
+ 	In the case of LDAP, MySQL, Oracle, and PostgreSQL this means
+ 	that authentication will not be performed.
+ 
+-=back 4
++=back
+ 
+ B<database = ">I<databasename>B<">
+ 
+@@ -555,7 +555,7 @@
+ 
+ =item * Virtual is a firewall mark: fwm
+ 
+-=back 4
++=back
+ 
+ 
+ =head1 FILES
