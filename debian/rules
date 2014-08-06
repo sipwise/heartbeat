@@ -132,7 +132,7 @@ binary-indep: build install
 	dh_makeshlibs -i -V
 	dh_installdeb -i
 	dh_perl -i
-	dh_pycentral -i
+	dh_python2 -i
 	dh_python -i `pwd`/usr/lib64/heartbeat/cts `pwd`/usr/lib64/heartbeat
 	dh_shlibdeps -i
 	dh_gencontrol -i
@@ -162,7 +162,7 @@ binary-arch: build install
 	dh_makeshlibs -a -V
 	dh_installdeb -a
 	dh_perl -a
-	dh_pycentral -a
+	dh_python2 -a
 	dh_python -a `pwd`/usr/lib64/heartbeat/cts `pwd`/usr/lib64/heartbeat
 	dh_shlibdeps -a
 	dh_gencontrol -a
