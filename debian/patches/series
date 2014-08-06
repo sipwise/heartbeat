@@ -17,3 +17,4 @@ IPv6addr-background-UA.patch
 cherry-pick-upstream-de3074ce2c9718725a374bcd2199ebc.patch
 fix_MT5715.patch
 fix_MT7335.patch
+fix-ftbfs-lp1188428.patch
