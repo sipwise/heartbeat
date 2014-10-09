@@ -1,3 +1,16 @@
+heartbeat-2 (2.1.3-7~sipwise4+0~mr3.6.0.0) unstable; urgency=low
+
+  [ Michael Prokop ]
+  * [34f9bad] MT#7335 Update Debian packaging regarding Python for jessie
+  * [973eef3] MT#7335 Fix incompatibility with glib version from Debian/jessie
+  * [c456201] MT#7335 Fix socket.h/ucast.c conflict when compiling for Debian/jessie
+  * [c28c44f] MT#7335 Fix flex issues when compiling for Debian/jessie
+  * [e2f2ba2] MT#7335 Fix pod2man compile issues with ldirectord for Debian/jessie
+
+  [ Sipwise Jenkins Builder ]
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 09 Oct 2014 16:29:06 +0200
+
 heartbeat-2 (2.1.3-7~sipwise4+0~mr3.5.0.0) unstable; urgency=low
 
   * New release.
