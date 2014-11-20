@@ -170,6 +170,9 @@
 /* Define to 1 if you have the `z' library (-lz). */
 #undef HAVE_LIBZ
 
+/* Define to 1 if you have the <linux/icmpv6.h> header file. */
+#undef HAVE_LINUX_ICMPV6_H
+
 /* Define to 1 if you have the <linux/watchdog.h> header file. */
 #undef HAVE_LINUX_WATCHDOG_H
 
@@ -190,9 +193,6 @@
 
 /* Define to 1 if you have the <ncurses/ncurses.h> header file. */
 #undef HAVE_NCURSES_NCURSES_H
-
-/* Define to 1 if you have the <netinet/icmp6.h> header file. */
-#undef HAVE_NETINET_ICMP6_H
 
 /* Define to 1 if you have the <netinet/in.h> header file. */
 #undef HAVE_NETINET_IN_H
