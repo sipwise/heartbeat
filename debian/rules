@@ -133,7 +133,6 @@ binary-indep: build install
 	dh_installdeb -i
 	dh_perl -i
 	dh_python2 -i
-	dh_python -i `pwd`/usr/lib64/heartbeat/cts `pwd`/usr/lib64/heartbeat
 	dh_shlibdeps -i
 	dh_gencontrol -i
 	dh_md5sums -i
@@ -163,7 +162,6 @@ binary-arch: build install
 	dh_installdeb -a
 	dh_perl -a
 	dh_python2 -a
-	dh_python -a `pwd`/usr/lib64/heartbeat/cts `pwd`/usr/lib64/heartbeat
 	dh_shlibdeps -a
 	dh_gencontrol -a
 	dh_md5sums -a
