@@ -14,19 +14,11 @@ attached the simply patch file and please confirm.
 Cc: DAIKI MATSUDA <d.matuda@gmail.com>
 Signed-off-by: Simon Horman <horms@verge.net.au>
 
---- a/resources/OCF/Makefile.am
-+++ b/resources/OCF/Makefile.am
-@@ -76,6 +76,7 @@
- 			SAPInstance	\
- 			SendArp		\
- 			ServeRAID	\
-+			SphinxSearchDaemon	\
- 			Stateful	\
- 			SysInfo		\
- 			tomcat		\
---- a/resources/OCF/Makefile.in
-+++ b/resources/OCF/Makefile.in
-@@ -415,6 +415,7 @@
+Index: heartbeat/resources/OCF/Makefile.am
+===================================================================
+--- heartbeat.orig/resources/OCF/Makefile.am	2007-11-30 16:15:19.000000000 +0900
++++ heartbeat/resources/OCF/Makefile.am	2008-01-08 13:16:50.000000000 +0900
+@@ -76,6 +76,7 @@ ocf_SCRIPTS	     =  ClusterMon 	\
  			SAPInstance	\
  			SendArp		\
  			ServeRAID	\
