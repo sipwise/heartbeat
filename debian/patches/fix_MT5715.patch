@@ -11,7 +11,7 @@
 +  (
 +    flock -x -w 2 9 || exit 1;
 +    (echo ">>>"; cat -; echo "<<<";)| cat - >> $HA_FIFO
-+  ) 9>/tmp/clustermsg.lock
++  ) 9>"${HA_VARRUN}/heartbeat/clustermsg.lock"
  }
  
 +
