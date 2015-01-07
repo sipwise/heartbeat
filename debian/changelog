@@ -1,3 +1,27 @@
+heartbeat-2 (2.1.3-7~sipwise4+0~mr3.8.0.0) unstable; urgency=low
+
+  [ Alexander Lutay ]
+  * [f15f7fe] MT#7505 Add .gitreview file for heartbeat
+
+  [ Michael Prokop ]
+  * [2403e0c] MT#9617 Apply debian/patches/debian-changes to git repository
+  * [867f016] MT#9617 Commit ldirectord/ldirectord + telecom/recoverymgrd/conf_lex.c from upstream sources
+  * [4e81a60] MT#9617 Support compilation on Debian/jessie.
+    Thanks to Richard Fuchs <rfuchs@sipwise.com> for the initial patch
+  * [725a5a7] MT#9617 Build-Depend on libgnutls28-dev or libgnutls-dev
+  * [7a544ad] MT#9617 Adjust Makefile.am for inclusion of SphinxSearchDaemon
+  * [4f71576] MT#9617 Drop deprecated dh_python calls from debian/rules
+  * [86478c9] MT#9617 Revert "MT#9617 Adjust Makefile.am for inclusion of SphinxSearchDaemon"
+  * [5c65554] MT#9617 Refresh fix_MT9617_debian_jessie_support.patch for usage with sipwise-debian-changes.patch
+  * [404c886] MT#9617 Apply debian-changes patch as sipwise-debian-changes.patch
+
+  [ Victor Seva ]
+  * [1c0aef1] MT#10689 MT#5715 move lock to /var/run/heartbeat dir for security reasons
+
+  [ Sipwise Jenkins Builder ]
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 07 Jan 2015 21:24:19 +0100
+
 heartbeat-2 (2.1.3-7~sipwise4+0~mr3.7.0.0) unstable; urgency=low
 
   * New release.
