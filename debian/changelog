@@ -1,3 +1,12 @@
+heartbeat-2 (2.1.3-7~sipwise4+0~mr4.0.0.0) unstable; urgency=low
+
+  [ Michael Prokop ]
+  * [7b8bc04] MT#9127 Bump Standards-Version to 3.9.6
+
+  [ Sipwise Jenkins Builder ]
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Wed, 18 Mar 2015 13:55:35 +0100
+
 heartbeat-2 (2.1.3-7~sipwise4+0~mr3.8.0.0) unstable; urgency=low
 
   [ Alexander Lutay ]
