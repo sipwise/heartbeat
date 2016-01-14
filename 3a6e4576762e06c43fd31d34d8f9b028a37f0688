@@ -1,0 +1,8 @@
+Verified+1: Jenkins Jenkins <jenkins@sipwise.com>
+Code-Review+1: Alexander Lutay <alutay@sipwise.com>
+Code-Review+2: Víctor Seva <vseva@sipwise.com>
+Submitted-by: Guillem Jover <gjover@sipwise.com>
+Submitted-at: Thu, 14 Jan 2016 16:01:28 +0100
+Reviewed-on: http://gerrit.mgm.sipwise.com/4142
+Project: heartbeat
+Branch: refs/heads/master
