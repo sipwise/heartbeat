@@ -10,7 +10,7 @@ Build-Depends:
  iproute2,
  iputils-ping,
  libbz2-dev,
- libcurl4-openssl-dev | libcurl3-openssl-dev,
+ libcurl4-gnutls-dev | libcurl3-gnutls-dev,
  libglib2.0-dev,
  libgnutls28-dev | libgnutls-dev,
  libltdl3-dev,
