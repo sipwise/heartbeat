@@ -33,7 +33,7 @@ Build-Depends:
  swig,
  uuid-dev,
  zlib1g-dev,
-Standards-Version: 3.9.6
+Standards-Version: 3.9.7
 
 Package: ldirectord-2
 Section: admin
