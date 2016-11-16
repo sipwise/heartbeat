@@ -22,3 +22,4 @@ fix_MT7335_lex.patch
 fix_MT7335_poderror_ldirectord.patch
 sipwise-debian-changes.patch
 fix_MT9617_debian_jessie_support.patch
+deprecate_gnutls_set_priority_functions.patch
