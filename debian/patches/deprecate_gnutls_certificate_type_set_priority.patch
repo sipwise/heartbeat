@@ -1,0 +1,60 @@
+--- a/lib/plugins/quorum/quorumd.c
++++ b/lib/plugins/quorum/quorumd.c
+@@ -331,7 +331,10 @@
+ 	
+ 	gnutls_init (&session, GNUTLS_CLIENT);
+ 	gnutls_set_default_priority (session);
+-	gnutls_certificate_type_set_priority (session, cert_type_priority);
++	#if defined(GNUTLS_VERSION_NUMBER) && \
++		GNUTLS_VERSION_NUMBER < 0x020200 /* 2.2.0 */
++		gnutls_certificate_type_set_priority (session, cert_type_priority);
++	#endif
+ 	gnutls_credentials_set (session, GNUTLS_CRD_CERTIFICATE, xcred);
+ 	gnutls_transport_set_ptr (session, (gnutls_transport_ptr) GINT_TO_POINTER(sd));
+ 	ret = gnutls_handshake (session);
+--- a/membership/quorumd/quorumdtest.c
++++ b/membership/quorumd/quorumdtest.c
+@@ -140,7 +140,10 @@
+ 	
+ 	gnutls_init (&session, GNUTLS_CLIENT);
+ 	gnutls_set_default_priority (session);
+-	gnutls_certificate_type_set_priority (session, cert_type_priority);
++	#if defined(GNUTLS_VERSION_NUMBER) && \
++		GNUTLS_VERSION_NUMBER < 0x020200 /* 2.2.0 */
++		gnutls_certificate_type_set_priority (session, cert_type_priority);
++	#endif
+ 	gnutls_credentials_set (session, GNUTLS_CRD_CERTIFICATE, xcred);
+ 	gnutls_transport_set_ptr (session, (gnutls_transport_ptr) GINT_TO_POINTER(sd));
+ 	ret = gnutls_handshake (session);
+--- a/crm/cib/remote.c
++++ b/crm/cib/remote.c
+@@ -84,7 +84,12 @@
+ 
+ 	gnutls_init(session, GNUTLS_SERVER);
+ 	gnutls_set_default_priority(*session);
+- 	gnutls_kx_set_priority (*session, tls_kx_order);
++	#if defined(GNUTLS_VERSION_NUMBER) && \
++		GNUTLS_VERSION_NUMBER < 0x020200 /* 2.2.0 */
++	 	gnutls_kx_set_priority (*session, tls_kx_order);
++	#else
++		gnutls_priority_set_direct(*session, tls_kx_order, NULL);
++	#endif
+ 	gnutls_credentials_set(*session, GNUTLS_CRD_ANON, anon_cred);
+ 	gnutls_transport_set_ptr(*session,
+ 				 (gnutls_transport_ptr) GINT_TO_POINTER(csock));
+--- a/lib/mgmt/mgmt_tls_lib.c
++++ b/lib/mgmt/mgmt_tls_lib.c
+@@ -59,7 +59,12 @@
+ 	gnutls_session* session = (gnutls_session*)gnutls_malloc(sizeof(gnutls_session));
+ 	gnutls_init(session, GNUTLS_CLIENT);
+ 	gnutls_set_default_priority(*session);
+-	gnutls_kx_set_priority (*session, kx_prio);
++	#if defined(GNUTLS_VERSION_NUMBER) && \
++		GNUTLS_VERSION_NUMBER < 0x020200 /* 2.2.0 */
++	 	gnutls_kx_set_priority (*session, kx_prio);
++	#else
++		gnutls_priority_set_direct(*session, kx_prio, NULL);
++	#endif
+ 	gnutls_credentials_set(*session, GNUTLS_CRD_ANON, anoncred_client);
+ 	gnutls_transport_set_ptr(*session, (gnutls_transport_ptr) GINT_TO_POINTER(sock));
+ 	ret = gnutls_handshake(*session);
