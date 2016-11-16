@@ -1,0 +1,20 @@
+--- a/lib/plugins/quorum/quorumd.c
++++ b/lib/plugins/quorum/quorumd.c
+@@ -331,7 +331,6 @@
+ 	
+ 	gnutls_init (&session, GNUTLS_CLIENT);
+ 	gnutls_set_default_priority (session);
+-	gnutls_certificate_type_set_priority (session, cert_type_priority);
+ 	gnutls_credentials_set (session, GNUTLS_CRD_CERTIFICATE, xcred);
+ 	gnutls_transport_set_ptr (session, (gnutls_transport_ptr) GINT_TO_POINTER(sd));
+ 	ret = gnutls_handshake (session);
+--- a/membership/quorumd/quorumdtest.c
++++ b/membership/quorumd/quorumdtest.c
+@@ -140,7 +140,6 @@
+ 	
+ 	gnutls_init (&session, GNUTLS_CLIENT);
+ 	gnutls_set_default_priority (session);
+-	gnutls_certificate_type_set_priority (session, cert_type_priority);
+ 	gnutls_credentials_set (session, GNUTLS_CRD_CERTIFICATE, xcred);
+ 	gnutls_transport_set_ptr (session, (gnutls_transport_ptr) GINT_TO_POINTER(sd));
+ 	ret = gnutls_handshake (session);
