@@ -1,3 +1,12 @@
+heartbeat-2 (2.1.3-7~sipwise4+0~mr5.0.1.0) unstable; urgency=medium
+
+  [ Michael Prokop ]
+  * [bbcba64] TT#6650 Bump Debian compat version to level 9 to build against stretch
+
+  [ Sipwise Jenkins Builder ]
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Thu, 17 Nov 2016 23:12:01 +0100
+
 heartbeat-2 (2.1.3-7~sipwise4+0~mr5.0.0.0) unstable; urgency=medium
 
   * New release.
