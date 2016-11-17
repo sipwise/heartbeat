@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba51214e_139c1b69",
+        "filename": "debian/patches/deprecate_gnutls_set_priority_functions.patch",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2016-11-17T09:46:02Z",
+      "side": 1,
+      "message": "I don\u0027t think this (and the other instances) are right, as the tls_kx_order argument is an array of ints, but this function takes a string describing the priorities, like the one described in http://www.gnutls.org/manual/html_node/Core-TLS-API.html#gnutls_005fpriority_005finit but then the defaults are probably fine now, so maybe just better to remove the calls completely?",
+      "revId": "c487d422baf6329666b9c4e4ee7fa1b1b5424a9a",
+      "serverId": "85315e57-5f03-49c3-83f8-201ae2313a75",
+      "unresolved": false
+    }
+  ]
+}
