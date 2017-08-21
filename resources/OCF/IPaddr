@@ -327,6 +327,9 @@ find_interface_generic() {
 	    *:*)	;;
 	    *)	continue;;
 	esac
+
+	: Remove trailing : from ifname from newer ifconfig
+	ifname=${ifname%%:}
 	
 	: "comparing $ipaddr to $addr (from ifconfig)"
 	case $addr in
@@ -384,7 +387,7 @@ find_free_interface() {
 	*)
 		j=0
 		IFLIST=`$IFCONFIG $IFCONFIG_A_OPT | \
-			grep "^$NIC:[0-9]" | sed 's% .*%%'`
+			grep "^$NIC:[0-9]" | sed 's%:* .*%%'`
                 TRYADRCNT=`ls "${NICBASE}:"* 2>/dev/null | wc -w | tr -d ' '`
 		if [ -f "${NICBASE}:${TRYADRCNT}" ]; then
 		  : OK

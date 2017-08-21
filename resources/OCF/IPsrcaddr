@@ -296,6 +296,9 @@ find_interface_generic() {
       : Nothing
     done
 
+    : Remove trailing : from ifname from newer ifconfig
+    ifname=${ifname%%:}
+
     case "$SYSTYPE" in
       *BSD)
 		$IFCONFIG | grep "$BASEIP" -B`$IFCONFIG | grep -c inet` | grep "UP," | cut -d ":" -f 1
