@@ -1,0 +1,10 @@
+*.debhelper
+*.log
+*.substvars
+/.debhelper/
+/debhelper-build-stamp
+/files
+/heartbeat-2-dev/
+/heartbeat-2-gui/
+/heartbeat-2/
+/ldirectord-2/

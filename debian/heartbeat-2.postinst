@@ -63,29 +63,21 @@ case "$1" in
             . /usr/share/debconf/confmodule
 	    db_get heartbeat/change_init || RET="false"
 	    if [ "$RET" = "true" ]; then
-	      /usr/sbin/update-rc.d -f heartbeat remove > /dev/null
+	      update-rc.d -f heartbeat remove > /dev/null
 	    fi
             db_stop
 	  fi
         fi
-	update-rc.d heartbeat start 75 2 3 4 5 . stop 05 0 1 6 . >/dev/null || true
+	update-rc.d heartbeat defaults >/dev/null || true
 
 	ldconfig
 
-	if which invoke-rc.d >/dev/null 2>&1; then
-		invoke-rc.d heartbeat start || true
-	else
-		/etc/init.d/heartbeat start || true
-	fi
+	invoke-rc.d heartbeat start || true
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
 	# restart heartbeat
-	if which invoke-rc.d >/dev/null 2>&1; then
-		invoke-rc.d heartbeat start || true
-	else
-		/etc/init.d/heartbeat start || true
-	fi
+	invoke-rc.d heartbeat start || true
     ;;
 
     *)
