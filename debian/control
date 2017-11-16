@@ -2,9 +2,10 @@ Source: heartbeat-2
 Section: admin
 Priority: optional
 Maintainer: Sipwise Development Team <support@sipwise.com>
+Standards-Version: 3.9.8
 Build-Depends:
  bison,
- debhelper (>= 5.0.37.2),
+ debhelper (>= 10),
  dh-python,
  flex,
  iproute2,
@@ -27,17 +28,15 @@ Build-Depends:
  openssh-client,
  perl,
  psmisc,
- python (>=2.6.6-3~),
+ python (>= 2.6.6-3~),
  python-dev,
- quilt,
  swig,
  uuid-dev,
  zlib1g-dev,
-Standards-Version: 3.9.7
 
 Package: ldirectord-2
 Section: admin
-Priority: extra
+Priority: optional
 Architecture: all
 Depends:
  ipvsadm,

@@ -8,19 +8,6 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-#
-# Path to SSH and SCP
-# Usually this is guessed if ssh is installed.
-# However, there is a long standing bug with installing ssh
-# on arm in debian and this is preventing heartbeat from
-# moving into sarge. By adding this we can remove the build
-# dependancy on ssh and get an updated heartbeat into sarge... 
-# I hope. Horms 26th July 2004
-#
-# If this is removed then the build depandancy on ssh should be
-# restored
-#
-
 cfg:=--prefix=/usr --sysconfdir=/etc --localstatedir=/var \
   --mandir=/usr/share/man \
   --with-group-name=haclient --with-ccmuser-name=hacluster \
@@ -38,53 +25,42 @@ ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
 else
        CFLAGS += -O2
 endif
-ifeq (,$(findstring nostrip,$(DEB_BUILD_OPTIONS)))
-       INSTALL_PROGRAM += -s
-endif
 
-DTMP:=`pwd`/debian/tmp
-patch:
-	dh_quilt_patch
+DTMP := $(CURDIR)/debian/tmp
 
-unpatch:
-	dh_quilt_unpatch
-
-configure: checkbuild patch
+configure:
 	dh_testdir
 	# Allow debian packages to also be built directly from Hg archives
 	# Official debian packages are built from dist tarballs
 	test ! -e ./configure || ./configure $(cfg)
 	test -e ./configure || ./bootstrap $(cfg)
 
-build: checkbuild configure build-stamp
-build-stamp:
+build: build-stamp
+build-stamp: configure
 	$(MAKE)
 	touch build-stamp
 
 clean: configure
 	dh_testroot
+	
 	# Add here commands to clean up after the build process.
 	-$(MAKE) clean MAKE=make
 	-$(MAKE) distclean MAKE=make
 	rm -f tools/ccdv
 	-find . -name '*.py[co]' | xargs rm -f
 	dh_clean build-stamp install-stamp
-	rm -f debian/init debian/*.debhelper debian/*.substvars config.log
-	rm -r -f debian/heartbeat debian/heartbeat-dev debian/ldirectord \
-		debian/heartbeat-2 debian/heartbeat-2-dev debian/ldirectord-2 \
-		debian/libstonith0 debian/libstonith-dev debian/stonith \
-		debian/libpils0 debian/libpils-dev \
-		debian/tmp
-
+	rm -f debian/init
+	
 	# Zero autoconf foo
-	rm -f config.status libltdl/config.log libltdl/config.status 
+	rm -f config.log config.status \
+	      libltdl/config.log libltdl/config.status
 
 
-install: build install-stamp
-install-stamp:
+install: install-stamp
+install-stamp: build
 	dh_testdir
 	dh_testroot
-	dh_clean -k
+	dh_prep
 	dh_installdirs
 	$(MAKE) install DESTDIR=$(DTMP) \
 	  MAKE=make \
@@ -109,26 +85,19 @@ install-stamp:
 	#find $(DTMP)
 	dh_movefiles --source=debian/tmp
 
-binary-indep: build install
+binary-indep: install
 	dh_testdir -i
 	dh_testroot -i
 	dh_installdebconf -i
 	dh_installdocs -i
 	dh_installexamples -i
-#	dh_installmenu -i
-#	dh_installemacsen -i
-#	dh_installpam -i
-	dh_installinit -i -n -u 'defaults 20 32'
-#	dh_installcron -i
+	dh_installinit -i -n
 	dh_installman -i
-#	dh_installinfo -i
-#	dh_undocumented -i
 	dh_installchangelogs -i
 	dh_link -i
 	dh_strip -i
 	dh_compress -i
 	dh_fixperms -i
-#	dh_suidregister -i
 	dh_makeshlibs -i -V
 	dh_installdeb -i
 	dh_perl -i
@@ -138,26 +107,19 @@ binary-indep: build install
 	dh_md5sums -i
 	dh_builddeb -i
 
-binary-arch: build install
+binary-arch: install
 	dh_testdir -a
 	dh_testroot -a
 	dh_installdebconf -a
 	dh_installdocs -a
 	dh_installexamples -a
-#	dh_installmenu -a
-#	dh_installemacsen -a
-#	dh_installpam -a
-	dh_installinit -a -n -u 'defaults 20 32'
-#	dh_installcron -a
+	dh_installinit -a -n
 	dh_installman -a
-#	dh_installinfo -a
-#	dh_undocumented -a
-	dh_installchangelogs -a `pwd`/doc/ChangeLog
+	dh_installchangelogs -a $(CURDIR)/doc/ChangeLog
 	dh_link -a
 	dh_strip -a
 	dh_compress -a
 	dh_fixperms -a --exclude usr/bin/cl_status
-#	dh_suidregister -a
 	dh_makeshlibs -a -V
 	dh_installdeb -a
 	dh_perl -a
@@ -171,9 +133,4 @@ binary: binary-indep binary-arch
 	@echo "Any unpackaged files follow (.a and .la files omitted):"
 	@cd $(DTMP) && find ./ \! -type d | egrep -v \\\.l?a
 
-checkbuild:
-	chmod u+x ./debian/dpkg-checkbuild
-	./debian/dpkg-checkbuild debian/control
-
-.PHONY: build clean binary binary-indep binary-arch install checkbuild \
-	patch unpatch
+.PHONY: build clean binary binary-indep binary-arch install

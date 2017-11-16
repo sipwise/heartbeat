@@ -21,7 +21,7 @@
 MAINTAINERCLEANFILES    = Makefile.in
 
 EXTRA_DIST		= apply changelog compat control copyright \
-			  dpkg-checkbuild rules \
+			  rules \
 			  heartbeat.dirs heartbeat.files \
 			  heartbeat.postinst heartbeat.postrm \
 			  heartbeat.preinst \

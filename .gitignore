@@ -1,0 +1,10 @@
+*.la
+*.lo
+*.o
+.deps/
+.libs/
+.pc/
+Makefile
+Makefile.in
+config.log
+libtool
