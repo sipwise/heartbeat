@@ -1,0 +1,29 @@
+[Unit]
+Description=Heartbeat subsystem for High-Availability Linux
+Documentation=man:heartbeat(8)
+DefaultDependencies=no
+Requires=monit.service
+Before=graphical.target
+After=monit.service
+After=network-online.target
+After=time-sync.target
+After=openhpid.service
+Wants=network-online.target
+
+[Service]
+Type=forking
+Restart=no
+TimeoutSec=5min
+IgnoreSIGPIPE=no
+KillMode=process
+GuessMainPID=no
+RemainAfterExit=no
+PIDFile=/var/run/heartbeat.pid
+SuccessExitStatus=5 6
+ExecStart=/etc/init.d/heartbeat start
+ExecStop=/etc/init.d/heartbeat stop
+ExecReload=/etc/init.d/heartbeat reload
+
+[Install]
+# XXX: This is a hack.
+WantedBy=graphical.target
