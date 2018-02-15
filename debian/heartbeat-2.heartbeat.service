@@ -1,9 +1,7 @@
 [Unit]
 Description=Heartbeat subsystem for High-Availability Linux
 Documentation=man:heartbeat(8)
-DefaultDependencies=no
 Requires=monit.service
-Before=graphical.target
 After=monit.service
 After=network-online.target
 After=time-sync.target
@@ -25,5 +23,4 @@ ExecStop=/etc/init.d/heartbeat stop
 ExecReload=/etc/init.d/heartbeat reload
 
 [Install]
-# XXX: This is a hack.
-WantedBy=graphical.target
+WantedBy=multi-user.target

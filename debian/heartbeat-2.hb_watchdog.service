@@ -1,8 +1,6 @@
 [Unit]
 Description=Heartbeat Watchdog for High-Availability Linux
 Documentation=man:heartbeat(8)
-DefaultDependencies=no
-Before=graphical.target
 After=network-online.target
 After=heartbeat.service
 After=monit.service
@@ -22,5 +20,4 @@ ExecStart=/etc/init.d/hb_watchdog start
 ExecStop=/etc/init.d/hb_watchdog stop
 
 [Install]
-# XXX: This is a hack.
-WantedBy=graphical.target
+WantedBy=multi-user.target
