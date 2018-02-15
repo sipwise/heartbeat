@@ -13,7 +13,6 @@ Type=forking
 Restart=no
 TimeoutSec=5min
 IgnoreSIGPIPE=no
-KillMode=process
 GuessMainPID=no
 RemainAfterExit=no
 PIDFile=/var/run/heartbeat.pid
