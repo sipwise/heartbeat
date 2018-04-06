@@ -15,9 +15,9 @@ GuessMainPID=no
 RemainAfterExit=no
 PIDFile=/var/run/heartbeat.pid
 SuccessExitStatus=5 6
-ExecStart=/etc/init.d/heartbeat start
-ExecStop=/etc/init.d/heartbeat stop
-ExecReload=/etc/init.d/heartbeat reload
+ExecStart=/usr/share/heartbeat/sysvinit start
+ExecStop=/usr/share/heartbeat/sysvinit stop
+ExecReload=/usr/share/heartbeat/sysvinit reload
 
 [Install]
 WantedBy=multi-user.target
