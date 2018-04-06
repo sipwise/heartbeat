@@ -31,7 +31,6 @@
 /etc/ha.d/resource.d/portblock
 /etc/ha.d/shellfuncs
 /etc/heartbeat
-/etc/init.d/heartbeat
 /etc/logrotate.d/heartbeat
 /etc/pam.d/hbmgmtd
 usr/bin/cl_respawn
@@ -344,6 +343,7 @@ usr/share/heartbeat/lrmtest/testcases/xmllint.sh
 usr/share/heartbeat/mach_down
 usr/share/heartbeat/req_resource
 usr/share/heartbeat/stonithdtest/STONITHDBasicSanityCheck
+usr/share/heartbeat/sysvinit
 usr/share/heartbeat/utillib.sh
 usr/share/man/man1/cl_status.1.gz
 usr/share/man/man1/ha_logger.1.gz
