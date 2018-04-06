@@ -72,8 +72,6 @@ install-stamp: build
 	mv $(DTMP)/usr/share/heartbeat/cts/README \
 		$(DTMP)/usr/share/doc/heartbeat/README.cts
 	find $(DTMP)/usr/share/man -type f | xargs gzip -v --best
-	install -c -m 755 heartbeat/init.d/heartbeat \
-                $(DTMP)/etc/init.d/heartbeat
 	-mkdir -p $(DTMP)/usr/share/doc/ldirectord/
 	install -c -m 644 ldirectord/ldirectord.cf \
 	  $(DTMP)/usr/share/doc/ldirectord/
