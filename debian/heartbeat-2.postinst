@@ -55,20 +55,6 @@ case "$1" in
 		chown $i /var/lib/heartbeat/cores/$i
 		chgrp root /var/lib/heartbeat/cores/$i
 	done
-	
-	# Do we want to move the old S20 symlinks to S75 ones?
-	if [ -n "$2" ] ; then
-	  if `dpkg --compare-versions "$2" lt 1.0.4-2`; then
-            # use debconf
-            . /usr/share/debconf/confmodule
-	    db_get heartbeat/change_init || RET="false"
-	    if [ "$RET" = "true" ]; then
-	      update-rc.d -f heartbeat remove > /dev/null
-	    fi
-            db_stop
-	  fi
-        fi
-	update-rc.d heartbeat defaults >/dev/null || true
 
 	ldconfig
 

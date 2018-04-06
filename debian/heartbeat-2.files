@@ -31,7 +31,6 @@
 /etc/ha.d/resource.d/portblock
 /etc/ha.d/shellfuncs
 /etc/heartbeat
-/etc/init.d/heartbeat
 /etc/logrotate.d/heartbeat
 /etc/pam.d/hbmgmtd
 usr/bin/cl_respawn

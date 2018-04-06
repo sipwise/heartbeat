@@ -3,7 +3,6 @@ etc/ha.d/conf
 etc/ha.d/cts
 etc/ha.d/rc.d
 etc/ha.d/resource.d
-etc/init.d
 etc/logrotate.d/
 usr/include/pils
 usr/lib64/heartbeat
