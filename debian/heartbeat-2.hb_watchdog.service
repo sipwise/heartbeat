@@ -3,7 +3,6 @@ Description=Heartbeat Watchdog for High-Availability Linux
 Documentation=man:heartbeat(8)
 After=network-online.target
 After=heartbeat.service
-After=monit.service
 Requires=heartbeat.service
 Wants=network-online.target
 
