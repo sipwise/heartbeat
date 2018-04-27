@@ -58,12 +58,11 @@ case "$1" in
 
 	ldconfig
 
-	invoke-rc.d heartbeat start || true
+        # Remove obsolete rc.d links.
+        update-rc.d heartbeat remove
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
-	# restart heartbeat
-	invoke-rc.d heartbeat start || true
     ;;
 
     *)
