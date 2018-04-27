@@ -6,9 +6,6 @@
 #
 # see: dh_installdeb(1)
 
-# Cleanup old installed init script links, before we remove it.
-update-rc.d -f heartbeat remove >/dev/null
-
 invoke-rc.d heartbeat stop
 
 # dh_installdeb will replace this with shell code automatically
