@@ -90,9 +90,13 @@ Provides:
  libstonith0,
 Conflicts:
  cluster-agents,
+ cluster-glue,
  heartbeat,
  libpils0,
  libstonith0,
+ pacemaker,
+ pacemaker-cli-utils,
+ resource-agents,
 Replaces:
  libpils0,
  libstonith0,
