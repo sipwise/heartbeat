@@ -116,7 +116,7 @@ binary-arch: install
 	dh_installdebconf -a
 	dh_installdocs -a
 	dh_installexamples -a
-	dh_systemd_enable -a --name=heartbeat
+	dh_installsystemd -a --name=heartbeat
 	dh_installinit -a -n
 	dh_installman -a
 	dh_installchangelogs -a $(CURDIR)/doc/ChangeLog
