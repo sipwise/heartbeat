@@ -94,7 +94,7 @@ binary-indep: install
 	dh_installdebconf -i
 	dh_installdocs -i
 	dh_installexamples -i
-	dh_installinit -i -n
+	dh_installsystemd -i
 	dh_installman -i
 	dh_installchangelogs -i
 	dh_link -i
@@ -117,7 +117,6 @@ binary-arch: install
 	dh_installdocs -a
 	dh_installexamples -a
 	dh_installsystemd -a --name=heartbeat
-	dh_installinit -a -n
 	dh_installman -a
 	dh_installchangelogs -a $(CURDIR)/doc/ChangeLog
 	dh_link -a
