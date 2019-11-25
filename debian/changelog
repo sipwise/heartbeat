@@ -1,3 +1,12 @@
+heartbeat-2 (2.1.3-7~sipwise4+0~mr8.2.0.0) unstable; urgency=medium
+
+  [ Guillem Jover ]
+  * [b9de271] TT#51701 Switch from deprecated /var/run to /run
+
+  [ Sipwise Jenkins Builder ]
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 25 Nov 2019 14:53:39 +0100
+
 heartbeat-2 (2.1.3-7~sipwise4+0~mr8.1.0.0) unstable; urgency=medium
 
   * New release.
