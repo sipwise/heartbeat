@@ -1,3 +1,10 @@
+heartbeat-2 (2.1.3-7~sipwise4+0~mr8.5.1.0) unstable; urgency=medium
+
+  [ Richard Fuchs ]
+  * [dbe7c74] TT#83357 support interface specification for IPv6addr
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Tue, 14 Jul 2020 11:51:39 +0200
+
 heartbeat-2 (2.1.3-7~sipwise4+0~mr8.5.0.0) unstable; urgency=medium
 
   * New release.
