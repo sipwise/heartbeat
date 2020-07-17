@@ -1,0 +1,11 @@
+--- a/tools/cl_status.c
++++ b/tools/cl_status.c
+@@ -400,6 +400,8 @@
+ 			printf("%s\n", node);
+ 		} else {
+ 			type = hb->llc_ops->node_type(hb, node);
++			if (!type)
++				continue;
+ 			if (( ONLY_LIST_NORAMAL == TRUE )
+ 			      && (STRNCMP_CONST(type, "normal")==0)) {
+ 				printf("%s\n", node);
