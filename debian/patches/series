@@ -24,3 +24,4 @@ sipwise-debian-changes.patch
 fix_MT9617_debian_jessie_support.patch
 0001-TT-20088-Handle-changes-in-ifconfig-output-in-Debian.patch
 obsolete_gnutls_set_priority_functions.patch
+fix-cl-status-core.patch
