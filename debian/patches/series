@@ -24,3 +24,8 @@ sipwise-debian-changes.patch
 fix_MT9617_debian_jessie_support.patch
 0001-TT-20088-Handle-changes-in-ifconfig-output-in-Debian.patch
 obsolete_gnutls_set_priority_functions.patch
+<<<<<<< HEAD   (9391f9 Release new version 2.1.3-7~sipwise4+0~mr8.4.2.0)
+=======
+IPv6addr-interface.patch
+fix-cl-status-core.patch
+>>>>>>> CHANGE (816115 TT#86852 fix possible cl_status core dump)
