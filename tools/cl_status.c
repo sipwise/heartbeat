@@ -400,6 +400,8 @@ listnodes(ll_cluster_t *hb, int argc, char ** argv, const char * optstr)
 			printf("%s\n", node);
 		} else {
 			type = hb->llc_ops->node_type(hb, node);
+			if (!type)
+				continue;
 			if (( ONLY_LIST_NORAMAL == TRUE )
 			      && (STRNCMP_CONST(type, "normal")==0)) {
 				printf("%s\n", node);
