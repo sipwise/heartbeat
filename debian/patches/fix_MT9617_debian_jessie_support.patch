@@ -9,17 +9,6 @@
  
  
  
---- a/contrib/drbd-outdate-peer/Makefile.in
-+++ b/contrib/drbd-outdate-peer/Makefile.in
-@@ -375,7 +375,7 @@
- 			$(top_builddir)/lib/hbclient/libhbclient.la $(GLIBLIB)
- 
- drbd_peer_outdater_SOURCES = drbd-peer-outdater.c
--drbd_peer_outdater_LDADD = $(top_builddir)/lib/clplumbing/libplumb.la
-+drbd_peer_outdater_LDADD = $(top_builddir)/lib/clplumbing/libplumb.la $(GLIBLIB)
- all: all-am
- 
- .SUFFIXES:
 --- a/lib/plugins/quorum/quorumd.c
 +++ b/lib/plugins/quorum/quorumd.c
 @@ -354,8 +354,9 @@

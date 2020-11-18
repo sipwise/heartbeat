@@ -102,23 +102,6 @@ Thanks in advance.
 
 - Werner
 
-diff -ruN heartbeat-2.1.3.orig/ldirectord/init.d/ldirectord.debian heartbeat-2.1.3/ldirectord/init.d/ldirectord.debian
---- heartbeat-2.1.3.orig/ldirectord/init.d/ldirectord.debian 2007-12-21 21:45:48.000000000 +0100
-+++ heartbeat-2.1.3/ldirectord/init.d/ldirectord.debian 2008-03-06 23:33:32.864014191 +0100
-@@ -1,4 +1,13 @@
- #!/bin/sh
-+#
-+### BEGIN INIT INFO
-+# Provides:          ldirectord
-+# Required-Start:    $remote_fs $syslog
-+# Required-Stop:     $remote_fs $syslog
-+# Default-Start:     2 3 4 5
-+# Default-Stop:      0 1 6
-+### END INIT INFO
-+#
- # Author: Horms <horms@verge.net.au>
- #
- # Debian init script for ldirectord
 diff -ruN heartbeat-2.1.3.orig/ldirectord/init.d/ldirectord.debian.in heartbeat-2.1.3/ldirectord/init.d/ldirectord.debian.in
 --- heartbeat-2.1.3.orig/ldirectord/init.d/ldirectord.debian.in 2007-12-21 16:32:27.000000000 +0100
 +++ heartbeat-2.1.3/ldirectord/init.d/ldirectord.debian.in 2008-03-06 23:33:50.815012186 +0100

@@ -28,14 +28,9 @@ endif
 
 DTMP := $(CURDIR)/debian/tmp
 
-configure: configure.in
+config.status:
 	dh_testdir
-	# Allow debian packages to also be built directly from Hg archives
-	# Official debian packages are built from dist tarballs
-	./bootstrap $(cfg)
-
-config.status: configure
-	dh_testdir
+	dh_autoreconf
 	./configure $(cfg)
 
 build: build-stamp
@@ -57,6 +52,10 @@ clean: config.status
 	# Zero autoconf foo
 	rm -f config.log config.status \
 	      libltdl/config.log libltdl/config.status
+	rm -f lib/mgmt/pymgmt.py
+	rm -f lib/mgmt/pymgmt_wrap.c
+	
+	dh_autoreconf_clean
 
 
 install: install-stamp

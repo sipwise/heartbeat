@@ -6,6 +6,7 @@ Standards-Version: 3.9.8
 Build-Depends:
  bison,
  debhelper-compat (= 12),
+ dh-autoreconf,
  dh-python,
  flex,
  iproute2,
