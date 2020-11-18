@@ -1,0 +1,43 @@
+Author: Guillem Jover <gjover@siwise.com>
+Description: Fix linking with gcc-10 for global variables
+ Fix declaration and definition of variables to avoid duplicate
+ definitions.
+
+---
+ crm/tengine/callbacks.c |    2 +-
+ crm/tengine/main.c      |    2 +-
+ crm/tengine/ttest.c     |    1 -
+ 3 files changed, 2 insertions(+), 3 deletions(-)
+
+--- a/crm/tengine/main.c
++++ b/crm/tengine/main.c
+@@ -229,7 +229,7 @@ usage(const char* cmd, int exit_status)
+ 	exit(exit_status);
+ }
+ 
+-gboolean shuttingdown;
++extern gboolean shuttingdown;
+ gboolean
+ tengine_shutdown(int nsig, gpointer unused)
+ {  
+--- a/crm/tengine/callbacks.c
++++ b/crm/tengine/callbacks.c
+@@ -41,7 +41,7 @@ void cib_fencing_updated(const HA_Messag
+ 
+ extern char *te_uuid;
+ gboolean shuttingdown = FALSE;
+-crm_graph_t *transition_graph;
++crm_graph_t *transition_graph = NULL;
+ GTRIGSource *transition_trigger = NULL;
+ crm_action_timer_t *transition_timer = NULL;
+ 
+--- a/crm/tengine/ttest.c
++++ b/crm/tengine/ttest.c
+@@ -43,7 +43,6 @@
+ #include <clplumbing/GSource.h>
+ 
+ GMainLoop*  mainloop = NULL;
+-crm_graph_t *transition_graph = NULL;
+ cib_t *te_cib_conn = NULL;
+ 
+ static gboolean
