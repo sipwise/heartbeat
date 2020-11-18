@@ -1,0 +1,19 @@
+Author: Guillem Jover <gjover@sipwise.com>
+Description: Remove duplicate drbd from ocf_SCRIPTS
+ With newer build machinery, installing over an already existing file
+ is considered a failure, so the build process aborts.
+
+---
+ resources/OCF/Makefile.am |    1 -
+ 1 file changed, 1 deletion(-)
+
+--- a/resources/OCF/Makefile.am
++++ b/resources/OCF/Makefile.am
+@@ -43,7 +43,6 @@ ocf_SCRIPTS	     =  ClusterMon 	\
+ 			Dummy		\
+ 		        IPaddr		\
+ 		        IPaddr2		\
+-		        drbd		\
+ 			apache		\
+ 			AudibleAlarm	\
+ 			db2		\

@@ -26,3 +26,4 @@ fix_MT9617_debian_jessie_support.patch
 obsolete_gnutls_set_priority_functions.patch
 IPv6addr-interface.patch
 fix-cl-status-core.patch
+fix-duped-install.patch
