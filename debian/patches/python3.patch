@@ -1,0 +1,995 @@
+Author: Guillem Jover <gjover@sipwise.com>
+Description:  Switch from python 2 to 3
+ Switch python shebang to python3, and switch print to its function form.
+ .
+ This is needed for the upgrade to Debian bullseye, which has removed
+ most of python 2.
+
+---
+ acinclude.m4                               |    4 +-
+ crm/admin/crm_commands.py.in               |   12 +++---
+ crm/admin/crm_primitive.py.in              |   22 ++++++------
+ crm/admin/crm_utils.py.in                  |   18 +++++-----
+ cts/CM_LinuxHAv2.py.in                     |    2 -
+ cts/CM_hb.py.in                            |   20 +++++------
+ cts/CTS.py.in                              |   40 +++++++++++------------
+ cts/CTSaudits.py.in                        |   20 +++++------
+ cts/CTSlab.py.in                           |   50 ++++++++++++++---------------
+ cts/CTSproxy.py.in                         |   14 ++++----
+ cts/CTStests.py.in                         |   26 +++++++--------
+ cts/OCFIPraTest.py.in                      |    6 +--
+ cts/extracttests.py.in                     |    4 +-
+ cts/getpeinputs.sh.in                      |    4 +-
+ lib/plugins/stonith/external/ibmrsa-telnet |    2 -
+ lib/plugins/stonith/ribcl.py.in            |   18 +++++-----
+ resources/OCF/.ocf-binaries.in             |    2 -
+ tools/haresources2cib.py.in                |    6 +--
+ 18 files changed, 135 insertions(+), 135 deletions(-)
+
+--- a/acinclude.m4
++++ b/acinclude.m4
+@@ -20,8 +20,8 @@ AC_DEFUN([AM_CHECK_PYTHON_HEADERS],
+ [AC_REQUIRE([AM_PATH_PYTHON])
+ AC_MSG_CHECKING(for headers required to compile python extensions)
+ dnl deduce PYTHON_INCLUDES
+-py_prefix=`$PYTHON -c "import sys; print sys.prefix"`
+-py_exec_prefix=`$PYTHON -c "import sys; print sys.exec_prefix"`
++py_prefix=`$PYTHON -c "import sys; print(sys.prefix)"`
++py_exec_prefix=`$PYTHON -c "import sys; print(sys.exec_prefix)"`
+ PYTHON_INCLUDES="-I${py_prefix}/include/python${PYTHON_VERSION}"
+ if test "$py_prefix" != "$py_exec_prefix"; then
+   PYTHON_INCLUDES="$PYTHON_INCLUDES -I${py_exec_prefix}/include/python${PYTHON_VERSION}"
+--- a/lib/plugins/stonith/external/ibmrsa-telnet
++++ b/lib/plugins/stonith/external/ibmrsa-telnet
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python3
+ # vim: set filetype=python
+ #######################################################################
+ #
+--- a/crm/admin/crm_commands.py.in
++++ b/crm/admin/crm_commands.py.in
+@@ -79,7 +79,7 @@ def help(*args, **cmdoptions):
+ 
+ def debugstate(*args, **cmdoptions):
+     utl.log_info("Global Options: ")
+-    for opt in utl.global_opts.keys():
++    for opt in list(utl.global_opts.keys()):
+ 	utl.log_info(" * %s:\t%s" % (opt, utl.global_opts[opt]))
+     utl.log_info("Stack: "+repr(utl.topic_stack))
+     utl.log_info("Stack Head: "+utl.crm_topic)
+@@ -87,7 +87,7 @@ def debugstate(*args, **cmdoptions):
+ 
+ def do_list(*args, **cmdoptions):
+     topic = utl.crm_topic
+-    if cmdoptions.has_key("topic") and cmdoptions["topic"]:
++    if "topic" in cmdoptions and cmdoptions["topic"]:
+ 	topic = cmdoptions["topic"]
+ 
+     utl.log_debug("Complete '%s' listing" % topic)
+@@ -97,7 +97,7 @@ def do_list(*args, **cmdoptions):
+ 	lines = utl.os_system("cibadmin -Q -o nodes", False)
+ 	for line in lines:
+ 	    if line.find("node ") >= 0:
+-		print line.rstrip()
++		print(line.rstrip())
+     else:
+ 	utl.log_err("%s: Topic %s is not (yet) supported" % ("list", topic))
+ 	return 1
+@@ -105,7 +105,7 @@ def do_list(*args, **cmdoptions):
+ 
+ def do_status(*args, **cmdoptions):
+     topic = utl.crm_topic
+-    if cmdoptions.has_key("topic") and cmdoptions["topic"]:
++    if "topic" in cmdoptions and cmdoptions["topic"]:
+ 	topic = cmdoptions["topic"]
+ 
+     if topic == "resources":
+@@ -121,10 +121,10 @@ def do_status(*args, **cmdoptions):
+ 	    utl.log_dev("status line: "+line)
+ 	    if line.find("node_state ") >= 0:
+ 		if not args:
+-		    print line 
++		    print(line) 
+ 		for node in args:
+ 		    if line.find(node) >= 0:
+-			print line
++			print(line)
+     else:
+ 	utl.log_err("Topic %s is not (yet) supported" % topic)
+ 	return 1
+--- a/crm/admin/crm_primitive.py.in
++++ b/crm/admin/crm_primitive.py.in
+@@ -73,7 +73,7 @@ def cib_resource(doc, id, ra_class, type
+ 		resource.setAttribute("provider", provider)
+ 
+ 	elif ra_class != "lsb" and ra_class != "heartbeat": 
+-		print "Unknown resource class: "+ ra_class
++		print("Unknown resource class: "+ ra_class)
+ 		return None
+ 
+ 	operations = doc.createElement("operations")
+@@ -141,7 +141,7 @@ def cib_rsc_colocation(doc, id, other_re
+ 	return rsc_colocation
+ 
+ def print_usage():
+-	print "usage: " \
++	print("usage: " \
+ 	    + sys.argv[0] \
+ 	    + " --name <string>"\
+ 	    + " --class <string>"\
+@@ -155,10 +155,10 @@ def print_usage():
+ 	    + "\n\t"\
+ 	    + " [--rsc-option name=value]*"\
+ 	    + " [--rsc-location uname=score]*"\
+-	    + " [--rsc-colocation resource=score]*"
+-	print "Example:\n\t" + sys.argv[0] \
++	    + " [--rsc-colocation resource=score]*")
++	print("Example:\n\t" + sys.argv[0] \
+ 	    + " --name cluster_ip_1 --type IPaddr --provider heartbeat --class ocf "\
+-	    + "--rsc-option ip=192.168.1.101 --rsc-location node1=500 | cibadmin -C -p"
++	    + "--rsc-option ip=192.168.1.101 --rsc-location node1=500 | cibadmin -C -p")
+ 	sys.exit(1)
+     
+ if __name__=="__main__" :
+@@ -212,7 +212,7 @@ if __name__=="__main__" :
+ 			if params[1] != None:
+ 				rsc_options.append(args[i+1])
+ 			else:
+-				print "option '"+args[i+1]+"'  must be of the form name=value"
++				print("option '"+args[i+1]+"'  must be of the form name=value")
+ 				       
+ 		elif args[i] == "--rsc-location" :
+ 			skipthis = True
+@@ -220,7 +220,7 @@ if __name__=="__main__" :
+ 			if params[1] != None:
+ 			    rsc_location.append(args[i+1])
+ 			else:
+-			    print "option '"+args[i+1]+"'  must be of the form host=score"
++			    print("option '"+args[i+1]+"'  must be of the form host=score")
+ 
+ 		elif args[i] == "--rsc-colocation" :
+ 			skipthis = True
+@@ -228,12 +228,12 @@ if __name__=="__main__" :
+ 			if params[1] != None:
+ 				rsc_colocation.append(args[i+1])
+ 			else:
+-				print "option '"+args[i+1]+"' must be of the form resource=score" 
++				print("option '"+args[i+1]+"' must be of the form resource=score") 
+ 
+ 		elif args[i] == "--rsc-only" :
+ 			print_rsc_only = 1
+ 		else:
+-			print "Unknown argument: "+ args[i]
++			print("Unknown argument: "+ args[i])
+ 			print_usage()
+ 
+ 	cib = create_cib()
+@@ -242,7 +242,7 @@ if __name__=="__main__" :
+ 	resource = cib_resource(cib[0], rsc_name, rsc_class, rsc_type, rsc_provider)
+ 
+ 	if print_rsc_only:
+-		print resource.toprettyxml()
++		print(resource.toprettyxml())
+ 		sys.exit(0)
+ 
+ 	cib[1].appendChild(resource)
+@@ -265,4 +265,4 @@ if __name__=="__main__" :
+ 		colocation_rule = cib_rsc_colocation(cib[0], rsc_name, param[0], param[1])
+ 		cib[2].appendChild(colocation_rule)
+ 
+-	print cib[0].toprettyxml()
++	print(cib[0].toprettyxml())
+--- a/crm/admin/crm_utils.py.in
++++ b/crm/admin/crm_utils.py.in
+@@ -52,18 +52,18 @@ def exit_(code=0):
+     sys.exit(code)
+ 
+ def log_debug(log):
+-    if global_opts.has_key("debug") and global_opts["debug"]:
+-	print log
++    if "debug" in global_opts and global_opts["debug"]:
++	print(log)
+ 
+ def log_dev(log):
+-    if global_opts.has_key("devlog") and global_opts["devlog"]:
+-	print log
++    if "devlog" in global_opts and global_opts["devlog"]:
++	print(log)
+ 
+ def log_info(log):
+-    print log
++    print(log)
+ 
+ def log_err(log):
+-    print "ERROR: "+log
++    print("ERROR: "+log)
+ 
+ def set_topic(name):
+     global crm_topic
+@@ -80,7 +80,7 @@ def os_system(cmd, print_raw=False):
+     p.wait()
+     if print_raw:
+ 	for line in result:
+-	    print line.rstrip()
++	    print(line.rstrip())
+     return result
+ 
+ #
+@@ -174,9 +174,9 @@ def fancyopts(args, options, state):
+             if s: s += ':'
+             if l: l += '='
+         if s: short = short + s
+-        if l: long.append(l)
++        if l: int.append(l)
+ 
+-    opts, args = getopt.getopt(args, short, long)
++    opts, args = getopt.getopt(args, short, int)
+ 
+     for opt, arg in opts:
+         if dt[map[opt]] is type(fancyopts): state[map[opt]](state,map[opt],arg)
+--- a/cts/CM_LinuxHAv2.py.in
++++ b/cts/CM_LinuxHAv2.py.in
+@@ -158,7 +158,7 @@ class LinuxHAv2(HeartbeatCM):
+             self.log("Node %s is not up." % node)
+             return None
+ 
+-        if not self.CIBsync.has_key(node) and self.Env["ClobberCIB"] == 1:
++        if node not in self.CIBsync and self.Env["ClobberCIB"] == 1:
+             self.CIBsync[node] = 1
+             self.rsh.remote_py(node, "os", "system", "rm -f @HA_VARLIBDIR@/heartbeat/crm/cib.xml")
+             self.rsh.remote_py(node, "os", "system", "rm -f @HA_VARLIBDIR@/heartbeat/crm/cib.xml.sig")
+--- a/cts/CM_hb.py.in
++++ b/cts/CM_hb.py.in
+@@ -373,10 +373,10 @@ class HBConfig:
+         # We allow each resource group to have its own failover/back
+         # policies
+         #
+-        if self.Parameters.has_key("nice_failback")         \
++        if "nice_failback" in self.Parameters         \
+         and                self.Parameters["nice_failback"] == "on":
+             HBConfig.DefaultFailbackPolicy = no_failback
+-        elif self.Parameters.has_key("auto_failback")         \
++        elif "auto_failback" in self.Parameters         \
+         and                self.Parameters["auto_failback"] == "off":
+             HBConfig.DefaultFailbackPolicy = no_failback
+         else:
+@@ -402,11 +402,11 @@ class HBConfig:
+             key = tokens[0]
+             values = tokens[1:]
+ 
+-            if HBConfig.MultiTokenKeywords.has_key(key):
++            if key in HBConfig.MultiTokenKeywords:
+                 # group items from this line together, and separate
+                 # from the items on other lines
+                 values = [values]
+-            if self.Parameters.has_key(key):
++            if key in self.Parameters:
+                 if key == "node":
+                     self.Parameters[key].extend(values)
+                 else:
+@@ -463,7 +463,7 @@ class HBConfig:
+                 rscargs.append(Resource(name, args))
+             name = tokens[0] + "__" + tokens[1]
+ 
+-            assert not self.ResourceGroups.has_key(name)
++            assert name not in self.ResourceGroups
+ 
+             #
+             #        Create the resource group
+@@ -640,10 +640,10 @@ if __name__ == '__main__':
+         cf=HBConfig("/etc/ha.d")
+ 
+ 
+-        print "Cluster configuration:\n"
++        print("Cluster configuration:\n")
+ 
+-        print "Nodes:", cf.nodes(), "\n"
+-        print "Config Parameters:", cf.Parameters, "\n"
++        print("Nodes:", cf.nodes(), "\n")
++        print("Config Parameters:", cf.Parameters, "\n")
+ 
+-        for groupname in cf.ResourceGroups.keys():
+-            print "Resource Group %s:\n\t%s\n" % (groupname, cf.ResourceGroups[groupname])
++        for groupname in list(cf.ResourceGroups.keys()):
++            print("Resource Group %s:\n\t%s\n" % (groupname, cf.ResourceGroups[groupname]))
+--- a/cts/CTS.py.in
++++ b/cts/CTS.py.in
+@@ -110,7 +110,7 @@ class RemoteExec:
+         while count < 3:
+            rc = os.system(self._cmd(args))
+            if rc == 0: return rc
+-           print "Retrying command %s" % self._cmd(args)
++           print("Retrying command %s" % self._cmd(args))
+            count=count+1
+         return rc
+ 
+@@ -154,14 +154,14 @@ class RemoteExec:
+             rc = os.system(cpstring)
+             if rc == 0: 
+                 return rc
+-            print "Retrying command %s" % cpstring
++            print("Retrying command %s" % cpstring)
+         return rc
+ 
+     def echo_cp(self, src_host, src_file, dest_host, dest_file):
+         '''Perform a remote copy via echo'''
+         (rc, lines) = self.remote_py(src_host, "os", "system", "cat %s" % src_file)
+         if rc != 0:
+-            print "Copy of %s:%s failed" % (src_host, src_file) 
++            print("Copy of %s:%s failed" % (src_host, src_file)) 
+ 
+         elif dest_host == None:
+             fd = open(dest_file, "w")
+@@ -186,7 +186,7 @@ class RemoteExec:
+             rc = os.system(sshnoBlock)
+             if rc == 0: 
+                 return rc
+-            print "Retrying command %s" % sshnoBlock
++            print("Retrying command %s" % sshnoBlock)
+         return rc
+  
+     def remote_py(self, node, module, func, *args):
+@@ -242,7 +242,7 @@ class LogWatcher:
+         self.whichmatch = -1
+         self.unmatched = None
+         if self.debug:
+-            print "Debug now on for for log", log
++            print("Debug now on for for log", log)
+         self.Timeout = int(timeout)
+         self.returnonlymatch = None
+         if not os.access(log, os.R_OK):
+@@ -277,30 +277,30 @@ class LogWatcher:
+ 
+         done=time.time()+timeout+1
+         if self.debug:
+-            print "starting search: timeout=%d" % timeout
++            print("starting search: timeout=%d" % timeout)
+             for regex in self.regexes:
+-                print "Looking for regex: ", regex
++                print("Looking for regex: ", regex)
+ 
+         while (timeout <= 0 or time.time() <= done):
+             newsize=os.path.getsize(self.filename)
+-            if self.debug > 4: print "newsize = %d" % newsize
++            if self.debug > 4: print("newsize = %d" % newsize)
+             if newsize < self.size:
+                 # Somebody truncated the log!
+-                if self.debug: print "Log truncated!"
++                if self.debug: print("Log truncated!")
+                 self.setwatch(frombeginning=1)
+                 continue
+             if newsize > self.file.tell():
+                 line=self.file.readline()
+-                if self.debug > 2: print "Looking at line:", line
++                if self.debug > 2: print("Looking at line:", line)
+                 if line:
+                     last_line=line
+                     if not first_line:
+                         first_line=line
+-                        if self.debug: print "First line: "+ line
++                        if self.debug: print("First line: "+ line)
+                     which=-1
+                     for regex in self.regexes:
+                         which=which+1
+-                        if self.debug > 3: print "Comparing line to ", regex
++                        if self.debug > 3: print("Comparing line to ", regex)
+                         #matchobj = re.search(string.lower(regex), string.lower(line))
+                         matchobj = re.search(regex, line)
+                         if matchobj:
+@@ -308,18 +308,18 @@ class LogWatcher:
+                             if self.returnonlymatch:
+                               return matchobj.group(self.returnonlymatch)
+                             else:
+-                              if self.debug: print "Returning line"
++                              if self.debug: print("Returning line")
+                               return line
+             newsize=os.path.getsize(self.filename)
+             if self.file.tell() == newsize:
+                 if timeout > 0:
+                     time.sleep(0.025)
+                 else:
+-                    if self.debug: print "End of file"
+-                    if self.debug: print "Last line: "+last_line
++                    if self.debug: print("End of file")
++                    if self.debug: print("Last line: "+last_line)
+                     return None
+-        if self.debug: print "Timeout"
+-        if self.debug: print "Last line: "+last_line
++        if self.debug: print("Timeout")
++        if self.debug: print("Last line: "+last_line)
+         return None
+ 
+     def lookforall(self, timeout=None):
+@@ -418,7 +418,7 @@ class ClusterManager(UserDict):
+         None
+ 
+     def _finalConditions(self):
+-        for key in self.keys():
++        for key in list(self.keys()):
+             if self[key] == None:
+                 raise ValueError("Improper derivation: self[" + key
+                 +   "] must be overridden by subclass.")
+@@ -517,7 +517,7 @@ class ClusterManager(UserDict):
+         self.debug("Starting %s on node %s" %(self["Name"], node))
+         ret = 1
+ 
+-        if not self.ShouldBeStatus.has_key(node):
++        if node not in self.ShouldBeStatus:
+             self.ShouldBeStatus[node] = self["down"]
+ 
+         if self.ShouldBeStatus[node] != self["down"]:
+@@ -1106,7 +1106,7 @@ According to the manual page for ping:
+         '''Start the PingFest!'''
+ 
+         self.PingSize=1024
+-        if CM.Env.has_key("PingSize"):
++        if "PingSize" in CM.Env:
+                 self.PingSize=CM.Env["PingSize"]
+ 
+         CM.log("Starting %d byte flood pings" % self.PingSize)
+--- a/cts/CTSaudits.py.in
++++ b/cts/CTSaudits.py.in
+@@ -129,7 +129,7 @@ class ResourceAudit(ClusterAudit):
+                     +   "(otherRsc = " + repr(lastResource) + ")")
+                     Fatal = 1
+ 
+-                if self.CM.Env.has_key("SuppressMonitoring") and \
++                if "SuppressMonitoring" in self.CM.Env and \
+                 self.CM.Env["SuppressMonitoring"]:
+                     continue
+ 
+@@ -257,7 +257,7 @@ class HAResourceAudit(ClusterAudit):
+                     +        repr(RunningNodes))
+                     passed = 0
+             else:
+-                if not NumofInc.has_key(resource.inc_name):
++                if resource.inc_name not in NumofInc:
+                     NumofInc[resource.inc_name]=0
+                     MaxofInc[resource.inc_name]=resource.inc_max
+                 running = 1
+@@ -281,7 +281,7 @@ class HAResourceAudit(ClusterAudit):
+                     NumofInc[resource.inc_name] += 1
+ 
+         if self.CM.HasQuorum(None):
+-            for inc_name in NumofInc.keys():
++            for inc_name in list(NumofInc.keys()):
+                 if NumofInc[inc_name] != min(up_count, MaxofInc[inc_name]):
+                     passed = 0
+                     self.CM.log("Cloned resource "+ str(inc_name)
+@@ -320,7 +320,7 @@ class HAResourceAudit(ClusterAudit):
+         for dependency in Dependancies:
+             if dependency["type"] == "placement" and dependency["strength"] == "must":
+                 if NodeofRsc[dependency["from"]] != NodeofRsc[dependency["to"]]:
+-                    print dependency["from"] + " and " + dependency["to"] + " should be run on same node"
++                    print(dependency["from"] + " and " + dependency["to"] + " should be run on same node")
+                     passed = 0
+                   
+         return passed
+@@ -344,7 +344,7 @@ class CrmdStateAudit(ClusterAudit):
+         ,        "auditfail":0}
+ 
+     def has_key(self, key):
+-        return self.Stats.has_key(key)
++        return key in self.Stats
+ 
+     def __setitem__(self, key, value):
+         self.Stats[key] = value
+@@ -354,7 +354,7 @@ class CrmdStateAudit(ClusterAudit):
+ 
+     def incr(self, name):
+         '''Increment (or initialize) the value associated with the given name'''
+-        if not self.Stats.has_key(name):
++        if name not in self.Stats:
+             self.Stats[name]=0
+         self.Stats[name] = self.Stats[name]+1
+ 
+@@ -411,7 +411,7 @@ class CIBAudit(ClusterAudit):
+         ,        "auditfail":0}
+ 
+     def has_key(self, key):
+-        return self.Stats.has_key(key)
++        return key in self.Stats
+ 
+     def __setitem__(self, key, value):
+         self.Stats[key] = value
+@@ -421,7 +421,7 @@ class CIBAudit(ClusterAudit):
+     
+     def incr(self, name):
+         '''Increment (or initialize) the value associated with the given name'''
+-        if not self.Stats.has_key(name):
++        if name not in self.Stats:
+             self.Stats[name]=0
+         self.Stats[name] = self.Stats[name]+1
+ 
+@@ -518,7 +518,7 @@ class PartitionAudit(ClusterAudit):
+         self.NodeQuorum={}
+ 
+     def has_key(self, key):
+-        return self.Stats.has_key(key)
++        return key in self.Stats
+ 
+     def __setitem__(self, key, value):
+         self.Stats[key] = value
+@@ -528,7 +528,7 @@ class PartitionAudit(ClusterAudit):
+     
+     def incr(self, name):
+         '''Increment (or initialize) the value associated with the given name'''
+-        if not self.Stats.has_key(name):
++        if name not in self.Stats:
+             self.Stats[name]=0
+         self.Stats[name] = self.Stats[name]+1
+ 
+--- a/cts/CTSlab.py.in
++++ b/cts/CTSlab.py.in
+@@ -214,31 +214,31 @@ class SysLog(Logger):
+     }
+     def __init__(self, labinfo):
+ 
+-        if labinfo.has_key("syslogsource"):
++        if "syslogsource" in labinfo:
+             self.source=labinfo["syslogsource"]
+         else:
+             self.source=SysLog.defaultsource
+ 
+-        if labinfo.has_key("SyslogFacility"):
++        if "SyslogFacility" in labinfo:
+             self.facility=labinfo["SyslogFacility"]
+         else:
+             self.facility=DefaultFacility
+ 
+-        if SysLog.map.has_key(self.facility):
++        if self.facility in SysLog.map:
+             self.facility=SysLog.map[self.facility]
+ 
+         syslog.openlog(self.source, 0, self.facility)
+ 
+     def setfacility(self, facility):
+         self.facility = facility
+-        if SysLog.map.has_key(self.facility):
++        if self.facility in SysLog.map:
+           self.facility=SysLog.map[self.facility]
+         syslog.closelog()
+         syslog.openlog(self.source, 0, self.facility)
+         
+ 
+     def __call__(self, lines):
+-        if isinstance(lines, types.StringType):
++        if isinstance(lines, bytes):
+             syslog.syslog(lines)
+         else:
+             for line in lines:
+@@ -254,7 +254,7 @@ class StdErrLog(Logger):
+ 
+     def __call__(self, lines):
+         t = time.strftime(Logger.TimeFormat, time.localtime(time.time()))  
+-        if isinstance(lines, types.StringType):
++        if isinstance(lines, bytes):
+             sys.__stderr__.writelines([t, lines, "\n"])
+         else:
+             for line in lines:
+@@ -279,7 +279,7 @@ class FileLog(Logger):
+         fd = open(self.logfile, "a")
+         t = time.strftime(Logger.TimeFormat, time.localtime(time.time()))  
+ 
+-        if isinstance(lines, types.StringType):
++        if isinstance(lines, bytes):
+             fd.writelines([t, self.hostname, self.source, lines, "\n"])
+         else:
+             for line in lines:
+@@ -335,22 +335,22 @@ class CtsLab(UserDict):
+         'Return TRUE if our object has the minimal set of keys/values in it'
+         result = 1
+         for key in self.MinimalKeys:
+-            if not self.has_key(key):
++            if key not in self:
+                 result = None
+         return result
+ 
+     def SupplyDefaults(self): 
+-        if not self.has_key("logger"):
++        if "logger" not in self:
+             self["logger"] = (SysLog(self), StdErrLog(self))
+-        if not self.has_key("reset"):
++        if "reset" not in self:
+             self["reset"] = Stonith()
+-        if not self.has_key("CMclass"):
++        if "CMclass" not in self:
+             self["CMclass"] = HeartbeatCM
+-        if not self.has_key("LogFileName"):
++        if "LogFileName" not in self:
+             self["LogFileName"] = "@HA_VARLOGDIR@/ha-log"
+-        if not self.has_key("logrestartcmd"):
++        if "logrestartcmd" not in self:
+             self["logrestartcmd"] = "@INITDIR@/syslog restart"
+-        if not self.has_key("logfacility"):
++        if "logfacility" not in self:
+             LogFacility = DefaultFacility
+ 
+         #
+@@ -360,7 +360,7 @@ class CtsLab(UserDict):
+ 
+         #  Get a random seed for the random number generator.
+ 
+-        if self.has_key("RandSeed"):
++        if "RandSeed" in self:
+             randseed = self["RandSeed"]
+             self.log("Random seed is: " + str(randseed))
+             self.RandomGen.seed(str(randseed)) 
+@@ -399,7 +399,7 @@ class CtsLab(UserDict):
+                 try:
+                     self.Nodes[node] = gethostbyname_ex(node)
+                 except:
+-                    print node+" not found in DNS... aborting"
++                    print(node+" not found in DNS... aborting")
+                     raise
+         #
+         #        Reset Mechanism
+@@ -439,7 +439,7 @@ class CtsLab(UserDict):
+ 
+     def IsValidNode(self, node):
+         'Return TRUE if the given node is valid'
+-        return self.Nodes.has_key(node)
++        return node in self.Nodes
+ 
+     def __CheckNode(self, node):
+         "Raise a ValueError if the given node isn't valid"
+@@ -465,8 +465,8 @@ class CtsLab(UserDict):
+         return ret
+ 
+ def usage(arg):
+-    print "Illegal argument " + arg
+-    print "usage: " + sys.argv[0]  \
++    print("Illegal argument " + arg)
++    print("usage: " + sys.argv[0]  \
+     +  " --directory config-directory" \
+     +  " -D config-directory" \
+     +  " --logfile system-logfile-name" \
+@@ -495,7 +495,7 @@ def usage(arg):
+     +  " --suppress_cib_writes (1 | 0 | yes | no)" \
+     +  " -lstests" \
+     +  " --seed" \
+-    +  "  [number-of-iterations]"
++    +  "  [number-of-iterations]")
+     sys.exit(1)
+ 
+     
+@@ -685,15 +685,15 @@ if __name__ == '__main__':
+             node_list.pop(len(node_list)-1)
+ 
+     if LogFacility == None:
+-        if config.Parameters.has_key("logfacility"): 
++        if "logfacility" in config.Parameters: 
+             LogFacility = config.Parameters["logfacility"][0]
+         else:
+             LogFacility = DefaultFacility
+ 
+     if LimitNodes > 0:
+         if len(node_list) > LimitNodes:
+-            print("Limiting the number of nodes configured=%d (max=%d)"
+-                  %(len(node_list), LimitNodes))
++            print(("Limiting the number of nodes configured=%d (max=%d)"
++                  %(len(node_list), LimitNodes)))
+             while len(node_list) > LimitNodes:
+                 node_list.pop(len(node_list)-1)
+ 
+@@ -726,7 +726,7 @@ if __name__ == '__main__':
+     Environment["logfacility"] = LogFacility
+     Environment["oprofile"] = oprofile
+ 
+-    if config.Parameters.has_key("use_logd"):
++    if "use_logd" in config.Parameters:
+         Environment["use_logd"] = 1
+     
+     if Version == 2:
+@@ -772,7 +772,7 @@ if __name__ == '__main__':
+     cm.log("Enable Fencing:   %d" % Environment["DoFencing"])
+     cm.log("Enable Standby:   %d" % Environment["DoStandby"])
+     cm.log("Enable Resources: %d" % Environment["CIBResource"])
+-    if Environment.has_key("SuppressMonitoring") \
++    if "SuppressMonitoring" in Environment \
+     and Environment["SuppressMonitoring"]:
+         cm.log("Resource Monitoring is disabled")
+     cm.ns.WaitForAllNodesToComeUp(config.Parameters["node"])
+--- a/cts/CTSproxy.py.in
++++ b/cts/CTSproxy.py.in
+@@ -29,35 +29,35 @@ import sys, pickle, base64, binascii
+ 
+ # check the number of arguments
+ if len(sys.argv) != 4 :
+-        print "usage %s module function args"%sys.argv[0]
++        print("usage %s module function args"%sys.argv[0])
+         sys.exit(1)
+ 
+ # import the module        
+ try :
+         module = __import__(sys.argv[1], globals(), locals(), [])
+ except ImportError:
+-        print "can not find module %s"%sys.argv[1]
++        print("can not find module %s"%sys.argv[1])
+         sys.exit(1)
+ 
+ # find the function
+ try :
+         func = getattr(module,sys.argv[2])
+ except        AttributeError:
+-        print "can not find function %s"%sys.argv[2]
++        print("can not find function %s"%sys.argv[2])
+         sys.exit(1)
+ 
+ # unpack the arguments of functions
+ try :
+         args = pickle.loads(binascii.a2b_base64(sys.argv[3]))
+ except  IndexError:
+-        print "can not unpickle args %s"%sys.argv[3]
++        print("can not unpickle args %s"%sys.argv[3])
+         sys.exit(1)
+         
+ # call the function and return packed result
+ try :
+-        result = apply(func,args)
+-        print binascii.b2a_base64(pickle.dumps(result))
++        result = func(*args)
++        print(binascii.b2a_base64(pickle.dumps(result)))
+         sys.exit(0)
+ except TypeError:
+-        print "parameter error"
++        print("parameter error")
+         sys.exit(1)
+--- a/cts/CTStests.py.in
++++ b/cts/CTStests.py.in
+@@ -85,7 +85,7 @@ class RandomTests:
+         
+     def incr(self, name):
+         '''Increment (or initialize) the value associated with the given name'''
+-        if not self.Stats.has_key(name):
++        if name not in self.Stats:
+             self.Stats[name]=0
+         self.Stats[name] = self.Stats[name]+1
+ 
+@@ -102,14 +102,14 @@ class RandomTests:
+                 ignorelist.extend(test.errorstoignore())
+ 
+             while errcount < 1000:
+-                if BadNewsDebug: print "Looking for BadNews"
++                if BadNewsDebug: print("Looking for BadNews")
+                 match=BadNews.look(0)
+                 if match:
+-                   if BadNewsDebug: print "BadNews found: "+match
++                   if BadNewsDebug: print("BadNews found: "+match)
+                    add_err = 1
+                    for ignore in ignorelist:
+                        if add_err == 1 and re.search(ignore, match):
+-                           if BadNewsDebug: print "Ignoring based on pattern: ("+ignore+")"
++                           if BadNewsDebug: print("Ignoring based on pattern: ("+ignore+")")
+                            add_err = 0
+                    if add_err == 1:
+                        self.CM.log("BadNews: " + match)
+@@ -218,7 +218,7 @@ random for the selected number of iterat
+             stoptime=time.time()
+             elapsed_time = stoptime - starttime
+             test_time = stoptime - test.starttime
+-            if not test.has_key("min_time"):
++            if "min_time" not in test:
+                 test["elapsed_time"] = elapsed_time
+                 test["min_time"] = test_time
+                 test["max_time"] = test_time
+@@ -273,7 +273,7 @@ class CTSTest:
+         self.starttime=0
+ 
+     def has_key(self, key):
+-        return self.Stats.has_key(key)
++        return key in self.Stats
+ 
+     def __setitem__(self, key, value):
+         self.Stats[key] = value
+@@ -283,7 +283,7 @@ class CTSTest:
+ 
+     def incr(self, name):
+         '''Increment (or initialize) the value associated with the given name'''
+-        if not self.Stats.has_key(name):
++        if name not in self.Stats:
+             self.Stats[name]=0
+         self.Stats[name] = self.Stats[name]+1
+ 
+@@ -634,7 +634,7 @@ class StonithTest(CTSTest):
+         # for v2, stonithd test is a better test to run.
+         if self.CM["Name"] == "linux-ha-v2":
+             return None
+-        if self.CM.Env.has_key("DoStonith"):
++        if "DoStonith" in self.CM.Env:
+             return self.CM.Env["DoStonith"]
+         return 1
+ 
+@@ -708,7 +708,7 @@ class StonithdTest(StonithTest):
+         if not self.CM["Name"] == "linux-ha-v2":
+             return 0
+ 
+-        if self.CM.Env.has_key("DoStonith"):
++        if "DoStonith" in self.CM.Env:
+             return self.CM.Env["DoStonith"]
+ 
+         return 1
+@@ -1064,7 +1064,7 @@ class StandbyTest(CTSTest):
+     def is_applicable(self):
+         '''StandbyTest is applicable when the CM has a Standby command'''
+ 
+-        if not self.CM.has_key("Standby"):
++        if "Standby" not in self.CM:
+            return None
+         else:
+ 
+@@ -1083,7 +1083,7 @@ class StandbyTest(CTSTest):
+                 return None
+ 
+             cf = self.CM.cf
+-            if not cf.Parameters.has_key("auto_failback"):
++            if "auto_failback" not in cf.Parameters:
+                 return None
+             elif cf.Parameters["auto_failback"][0] == "legacy":
+                 return None
+@@ -1344,7 +1344,7 @@ class BandwidthTest(CTSTest):
+                 T1 = linesplit[0]
+                 timesplit = string.split(T1,":")
+                 time2split = string.split(timesplit[2],".")
+-                time1 = (long(timesplit[0])*60+long(timesplit[1]))*60+long(time2split[0])+long(time2split[1])*0.000001
++                time1 = (int(timesplit[0])*60+int(timesplit[1]))*60+int(time2split[0])+int(time2split[1])*0.000001
+                 break
+ 
+         while count < 100:
+@@ -1366,7 +1366,7 @@ class BandwidthTest(CTSTest):
+         T2 = linessplit[0]
+         timesplit = string.split(T2,":")
+         time2split = string.split(timesplit[2],".")
+-        time2 = (long(timesplit[0])*60+long(timesplit[1]))*60+long(time2split[0])+long(time2split[1])*0.000001
++        time2 = (int(timesplit[0])*60+int(timesplit[1]))*60+int(time2split[0])+int(time2split[1])*0.000001
+         time = time2-time1
+         if (time <= 0):
+             return 0
+--- a/cts/OCFIPraTest.py.in
++++ b/cts/OCFIPraTest.py.in
+@@ -26,13 +26,13 @@ Licensed under the GNU GPL.
+ import string,sys,struct,os,random,time,syslog
+ 
+ def usage():
+-    print "usage: " + sys.argv[0]  \
++    print("usage: " + sys.argv[0]  \
+     +  " [-2]"\
+     +  " [--ipbase|-i first-test-ip]"\
+     +  " [--ipnum|-n test-ip-num]"\
+     +  " [--help|-h]"\
+     +  " [--perform|-p op]"\
+-    +  " [number-of-iterations]"
++    +  " [number-of-iterations]")
+     sys.exit(1)
+ 
+ def perform_op(ra, ip, op):
+@@ -66,7 +66,7 @@ def log(towrite):
+     t = time.strftime("%Y/%m/%d_%H:%M:%S\t", time.localtime(time.time()))  
+     logstr = t + " "+str(towrite)
+     syslog.syslog(logstr)
+-    print logstr
++    print(logstr)
+ 
+ if __name__ == '__main__': 
+     ra = "IPaddr"
+--- a/cts/extracttests.py.in
++++ b/cts/extracttests.py.in
+@@ -69,7 +69,7 @@ class ExtractTests:
+         testlist = self.expandtestranges(testlist)
+         testlist.sort(sorttestnum)
+         self.testlist = testlist
+-        print "Extracting tests ", self.testlist
++        print("Extracting tests ", self.testlist)
+         self.regex=re.compile(" CTS: Running test .*\[([0-9]+)")
+         self.CTSregex=re.compile(" CTS: ")
+ 
+@@ -96,7 +96,7 @@ class ExtractTests:
+                     break
+ 
+ if len(sys.argv) < 3:
+-    print "Usage:", sys.argv[0] , "logfilename testnumber ..."
++    print("Usage:", sys.argv[0] , "logfilename testnumber ...")
+     sys.exit(1)
+ foo = ExtractTests (sys.argv[1], sys.argv[2:])
+ foo()
+--- a/cts/getpeinputs.sh.in
++++ b/cts/getpeinputs.sh.in
+@@ -19,8 +19,8 @@ is named after the test number.
+ 
+ Examples:
+ 
+-	python @HA_NOARCHDATAHBDIR@/cts/extracttests.py /var/log/ha-debug 122 | $0
+-	python @HA_NOARCHDATAHBDIR@/cts/extracttests.py /var/log/ha-debug 122 | tee 122.ha-debug | $0
++	python3 @HA_NOARCHDATAHBDIR@/cts/extracttests.py /var/log/ha-debug 122 | $0
++	python3 @HA_NOARCHDATAHBDIR@/cts/extracttests.py /var/log/ha-debug 122 | tee 122.ha-debug | $0
+ 
+ NB: Files are copied using ssh as root. In case you use different
+ user for ssh run the program like this:
+--- a/lib/plugins/stonith/ribcl.py.in
++++ b/lib/plugins/stonith/ribcl.py.in
+@@ -19,7 +19,7 @@
+ 
+ import sys
+ import socket
+-from httplib import *
++from http.client import *
+ from time import sleep
+ 
+ 
+@@ -30,7 +30,7 @@ try:
+         host = argv[1].split('.')[0]+'-rm'
+         cmd = argv[2]
+ except IndexError:
+-        print "Not enough arguments"
++        print("Not enough arguments")
+         sys.exit(1)
+ 
+ 
+@@ -67,7 +67,7 @@ try:
+         else:   
+                 acmds.append(login + todo[cmd] + logout)
+ except KeyError:
+-        print "Invalid command: "+ cmd
++        print("Invalid command: "+ cmd)
+         sys.exit(1)
+ 
+ 
+@@ -89,13 +89,13 @@ try:
+                 sleep(1)
+ 
+ 
+-except socket.gaierror, msg:
+-        print msg
++except socket.gaierror as msg:
++        print(msg)
+         sys.exit(1)
+-except socket.sslerror, msg:
+-        print msg
++except socket.sslerror as msg:
++        print(msg)
+         sys.exit(1)
+-except socket.error, msg:
+-        print msg
++except socket.error as msg:
++        print(msg)
+         sys.exit(1)
+ 
+--- a/resources/OCF/.ocf-binaries.in
++++ b/resources/OCF/.ocf-binaries.in
+@@ -35,7 +35,7 @@ export PATH
+ : ${MSGFMT:=msgfmt}
+ : ${NETSTAT:=netstat}
+ : ${PERL:=perl}
+-: ${PYTHON:=python}
++: ${PYTHON:=python3}
+ : ${RAIDSTART:=raidstart}
+ : ${RAIDSTOP:=raidstop}
+ : ${ROUTE:=route}
+--- a/tools/haresources2cib.py.in
++++ b/tools/haresources2cib.py.in
+@@ -439,13 +439,13 @@ if __name__=="__main__" :
+ 			skipthis = True
+ 			config_file = args[i+1]
+ 		elif args[i] == "--help" or args[i] == "-h" :
+-			print "usage: " + sys.argv[0]  \
++			print("usage: " + sys.argv[0]  \
+ 				+  " [--no-ocf]"\
+ 				+  " [--stdout]"\
+ 				+  " [--no-monitor]"\
+ 				+  " [--config|-c configfile]"\
+ 				+  " [--help|-h]"\
+-				+  " [resourcefile]"
++				+  " [resourcefile]")
+ 			sys.exit(1)
+ 		else:
+ 			resource_file = args[i]
+@@ -508,7 +508,7 @@ if __name__=="__main__" :
+ 			add_stonith_host(cib, stonith_host, id_index, node_num)
+ 			id_index += 1
+ 	if to_stdout :		
+-		print cib[0].toprettyxml()
++		print(cib[0].toprettyxml())
+ 	elif os.access(target_file, os.F_OK) or os.access(target_file+".sig", os.F_OK) :
+ 		sys.stderr.write("cib.xml or cib.xml.sig exist in @HA_VARLIBHBDIR@/crm/\n")
+ 		sys.stderr.write("please remove them before generating new cib.xml\n")

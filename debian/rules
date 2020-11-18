@@ -103,7 +103,7 @@ binary-indep: install
 	dh_makeshlibs -i -V
 	dh_installdeb -i
 	dh_perl -i
-	dh_python2 -i
+	dh_python3 -i
 	dh_shlibdeps -i
 	dh_gencontrol -i
 	dh_md5sums -i
@@ -125,7 +125,7 @@ binary-arch: install
 	dh_makeshlibs -a -V
 	dh_installdeb -a
 	dh_perl -a
-	dh_python2 -a
+	dh_python3 -a
 	dh_shlibdeps -a
 	dh_gencontrol -a
 	dh_md5sums -a

@@ -29,8 +29,7 @@ Build-Depends:
  openssh-client,
  perl,
  psmisc,
- python (>= 2.6.6-3~),
- python-dev,
+ python3-dev,
  swig,
  uuid-dev,
  zlib1g-dev,
@@ -80,7 +79,7 @@ Depends:
  libxml2-utils,
  mawk,
  psmisc,
- ${python:Depends},
+ ${python3:Depends},
  ${shlibs:Depends},
 Recommends:
  iptables,
