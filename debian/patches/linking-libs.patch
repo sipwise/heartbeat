@@ -1,0 +1,56 @@
+Author: Guillem Jover <gjover@sipwise.com>
+Description: Fix linking with gcc-10 for undeclared symbols
+ Add missing link dependencies for shared libraries, otherwise those
+ will fail the build as they end up with undefined symbol references.
+
+---
+ crm/pengine/Makefile.am    |    7 +++++--
+ lib/crm/common/Makefile.am |    1 +
+ membership/ccm/Makefile.am |    1 +
+ 3 files changed, 7 insertions(+), 2 deletions(-)
+
+--- a/lib/crm/common/Makefile.am
++++ b/lib/crm/common/Makefile.am
+@@ -40,6 +40,7 @@ noinst_HEADERS  =
+ 
+ libcrmcommon_la_SOURCES	= ipc.c msg.c utils.c xml.c ctrl.c \
+ 			iso8601.c iso8601_fields.c
++libcrmcommon_la_LIBADD	= $(top_builddir)/lib/clplumbing/libplumb.la
+ libcrmcommon_la_LDFLAGS	= -version-info 1:1:0
+ 
+ clean-generic:
+--- a/crm/pengine/Makefile.am
++++ b/crm/pengine/Makefile.am
+@@ -37,10 +37,12 @@ apigid		= @HA_APIGID@
+ crmuid		= @HA_CCMUID@
+ 
+ 
+-COMMONLIBS	= 					\
++CRMLIBS		=					\
+ 		$(top_builddir)/lib/clplumbing/libplumb.la		\
+ 		$(top_builddir)/lib/crm/common/libcrmcommon.la		\
+-		$(top_builddir)/lib/crm/pengine/libpe_status.la		\
++		$(top_builddir)/lib/crm/pengine/libpe_status.la
++COMMONLIBS	= 					\
++		$(CRMLIBS)						\
+ 		libpengine.la						\
+ 		$(GLIBLIB)						\
+ 		$(CURSESLIBS)						\
+@@ -62,6 +64,7 @@ noinst_HEADERS	= allocate.h utils.h peng
+ 
+ libpengine_la_LDFLAGS	= -version-info 3:0:0
+ # -L$(top_builddir)/lib/pils -lpils -export-dynamic -module -avoid-version 
++libpengine_la_LIBADD	= $(CRMLIBS)
+ libpengine_la_SOURCES	= pengine.c allocate.c utils.c constraints.c \
+ 			native.c group.c clone.c master.c graph.c
+ 
+--- a/membership/ccm/Makefile.am
++++ b/membership/ccm/Makefile.am
+@@ -93,6 +93,7 @@ libclmdir		= $(libdir)/@HB_PKG@
+ ## binary program
+ libclm_PROGRAMS		= clmtest
+ 
++libclm_la_LIBADD	= libccmclient.la
+ libclm_la_SOURCES	= ccmlib_clm.c
+ 
+ ## Add -DPOSIX_THREADS to CFLAGS to compile a thread-safe version library

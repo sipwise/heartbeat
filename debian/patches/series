@@ -27,3 +27,4 @@ IPv6addr-interface.patch
 fix-cl-status-core.patch
 fix-duped-install.patch
 linking-globals.patch
+linking-libs.patch
