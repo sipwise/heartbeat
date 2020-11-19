@@ -26,7 +26,6 @@ EXTRA_DIST		= apply changelog compat control copyright \
 			  heartbeat.postinst heartbeat.postrm \
 			  heartbeat.preinst \
 			  heartbeat-dev.dirs heartbeat-dev.files \
-			  heartbeat-gui.dirs heartbeat-gui.files \
 			  heartbeat-2.prerm \
 			  ldirectord.files ldirectord.postinst \
 			  ldirectord.postrm \
