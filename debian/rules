@@ -85,7 +85,7 @@ install-stamp: build
 	cd $(DTMP)/etc/ && ln -s ha.d heartbeat
 	# debug:
 	#find $(DTMP)
-	dh_movefiles --source=debian/tmp
+	dh_install
 
 binary-indep: install
 	dh_testdir -i
@@ -132,7 +132,6 @@ binary-arch: install
 	dh_builddeb -a
 
 binary: binary-indep binary-arch
-	@echo "Any unpackaged files follow (.a and .la files omitted):"
-	@cd $(DTMP) && find ./ \! -type d | egrep -v \\\.l?a
+	dh_missing --list-missing
 
 .PHONY: build clean binary binary-indep binary-arch install

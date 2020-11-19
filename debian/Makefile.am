@@ -22,12 +22,12 @@ MAINTAINERCLEANFILES    = Makefile.in
 
 EXTRA_DIST		= apply changelog compat control copyright \
 			  rules \
-			  heartbeat.dirs heartbeat.files \
+			  heartbeat.dirs heartbeat.install \
 			  heartbeat.postinst heartbeat.postrm \
 			  heartbeat.preinst \
-			  heartbeat-dev.dirs heartbeat-dev.files \
+			  heartbeat-dev.dirs heartbeat-dev.install \
 			  heartbeat-2.prerm \
-			  ldirectord.files ldirectord.postinst \
+			  ldirectord.install ldirectord.postinst \
 			  ldirectord.postrm \
 			  patches/ipv6-check.patch \
 			  patches/init-remote_fs.patch \
