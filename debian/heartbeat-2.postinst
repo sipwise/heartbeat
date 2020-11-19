@@ -36,7 +36,7 @@ case "$1" in
 	#fifo (0600, root, root)
 	#
         rm -f /var/lib/heartbeat/fifo
-        mknod -m 0600 /var/lib/heartbeat/fifo p
+        mkfifo -m 0600 /var/lib/heartbeat/fifo
 
 	for i in /var/lib/heartbeat/ccm /var/lib/heartbeat/crm \
 			/run/heartbeat/ccm //run/heartbeat/crm \
