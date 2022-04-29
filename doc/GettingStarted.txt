@@ -1,1 +1,0 @@
-Lynx or w3m or user-defined HTML2TXT required to convert GettingStarted.html to GettingStarted.txt
